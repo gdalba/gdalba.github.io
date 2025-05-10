@@ -7,3 +7,9 @@ pages:
   url: /publications
 - name: Showcase
   url: /showcase
+- name: Teaching Experience
+  url: /teaching
+- name: Research Experience
+  url: /research
+- name: Outreach
+  url: /outreach
