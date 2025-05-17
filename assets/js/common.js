@@ -4,7 +4,10 @@ $(function () {
         scrollDirection: 'vertical',
         effect: 'fadeIn',
         effectTime: 300,
-        placeholder: "",
+        placeholder: "", 
+        threshold: 0,
+        visibleOnly: true,
+        combined: false,
         onError: function(element) {
             console.log('[lazyload] Error loading ' + element.data('src'));
         },
@@ -20,22 +23,24 @@ $(function () {
         }
     }
 
-    $('img.lazy, div.lazy:not(.always-load)').Lazy({visibleOnly: true, ...lazyLoadOptions});
+    // Initialize lazy loading for visible elements
+    $('img.lazy, div.lazy:not(.always-load)').Lazy(lazyLoadOptions);
+    
+    // Initialize lazy loading for elements that should always be loaded 
     $('div.lazy.always-load').Lazy({visibleOnly: false, ...lazyLoadOptions});
+});
 
-    $('[data-toggle="tooltip"]').tooltip()
-
-    var $grid = $('.grid').masonry({
-        "percentPosition": true,
-        "itemSelector": ".grid-item",
-        "columnWidth": ".grid-sizer"
+// Initialize masonry grid
+$(window).on('load', function() {
+    $('.grid').each(function() {
+        var $grid = $(this);
+        // Initialize masonry after all images have loaded
+        $grid.imagesLoaded(function() {
+            $grid.masonry({
+                itemSelector: '.grid-item',
+                columnWidth: '.grid-sizer',
+                percentPosition: true
+            });
+        });
     });
-    // layout Masonry after each image loads
-    $grid.imagesLoaded().progress(function () {
-        $grid.masonry('layout');
-    });
-
-    $(".lazy").on("load", function () {
-        $grid.masonry('layout');
-    });
-})
+});

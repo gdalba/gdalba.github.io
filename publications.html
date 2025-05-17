@@ -1,32 +1,118 @@
 ---
 layout: default
-title : Publications
+title: Publications
 navbar_title: Publications
 body_attr: >-
-  data-spy="scroll" data-target="#navbar-year" data-offset="100"
+  data-spy="scroll" data-target=".nav-pills" data-offset="100"
 ---
 
-{% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
-
-<div class="row">
-    <div class="col-12 col-lg-10">
-        {% for year in pubs_by_year %}
-        {% assign num_papers = year.items | size %}
-        <h2 class="pt-4" id="year-{{ year.name }}">{{ year.name }}</h2>
-        <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
-            {% for item in year.items %}
-                {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
-            {% endfor %}
-        </div>
-        {% endfor %}
+<div class="row mb-3">
+    <div class="col">
+        <ul class="nav nav-pills nav-justified" id="publications-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All Publications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="bioinformatics-tab" data-toggle="tab" href="#bioinformatics" role="tab" aria-controls="bioinformatics" aria-selected="false">Bioinformatics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">Education</a>
+            </li>
+        </ul>
     </div>
-
-    <div class="col-2 d-none d-lg-block">
-        <div id="navbar-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
-            {% for year in pubs_by_year %}
-            <a class="nav-link d-block" href="#year-{{ year.name }}">{{ year.name }}</a>
-            {% endfor %}
-        </div>
-    </div>
-
 </div>
+
+<div class="tab-content" id="publications-tabContent">
+    <!-- All Publications Tab -->
+    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+                {% for year in pubs_by_year %}
+                <h2 class="pt-4" id="year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                        {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in pubs_by_year %}
+                    <a class="nav-link d-block" href="#year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bioinformatics Tab -->
+    <div class="tab-pane fade" id="bioinformatics" role="tabpanel" aria-labelledby="bioinformatics-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign bio_pubs = site.publications | where: "category", "bioinformatics" | sort: "date" | reverse %}
+                {% assign bio_pubs_by_year = bio_pubs | group_by_exp: "item", "item.date | date: '%Y'" %}
+                {% for year in bio_pubs_by_year %}
+                <h2 class="pt-4" id="bio-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                        {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-bio-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in bio_pubs_by_year %}
+                    <a class="nav-link d-block" href="#bio-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Education Tab -->
+    <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign edu_pubs = site.publications | where: "category", "education" | sort: "date" | reverse %}
+                {% assign edu_pubs_by_year = edu_pubs | group_by_exp: "item", "item.date | date: '%Y'" %}
+                {% for year in edu_pubs_by_year %}
+                <h2 class="pt-4" id="edu-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                        {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-edu-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in edu_pubs_by_year %}
+                    <a class="nav-link d-block" href="#edu-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script> // Did not work, I removed lazy loading
+$(document).ready(function() {
+    $('#publications-tab a').on('shown.bs.tab', function(e) {
+        var tabId = $(e.target).attr('href');
+        // For each lazy image in the shown tab, set src from data-src if needed
+        $(tabId).find('img.lazy').each(function() {
+            var $img = $(this);
+            var dataSrc = $img.attr('data-src');
+            if (dataSrc && (!$img.attr('src') || $img.attr('src').indexOf('empty_300x200.png') !== -1)) {
+                $img.attr('src', dataSrc);
+            }
+        });
+    });
+});
+</script> -->
