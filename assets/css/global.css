@@ -67,3 +67,36 @@ div.lazy {
     font-family: Courier, monospace;
 }
 
+.page-section {
+    margin-bottom: 2rem;
+}
+
+.page-section-title {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Experience item styling */
+.experience-item {
+    margin-bottom: 1.5rem;
+}
+
+.experience-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.experience-title {
+    font-weight: bold;
+}
+
+.experience-date {
+    margin-left: auto;
+    color: #6c757d;
+}
+
+.experience-description {
+    margin-bottom: 0;
+}

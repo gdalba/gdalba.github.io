@@ -35,6 +35,19 @@ plugins:
 # timezone: Asia/Shanghai
 
 collections:
-  - publications
-  - news
-  - showcase
+  publications:
+    output: true
+  news:
+    output: false
+  showcase: 
+    output: true
+  newsletters:
+    output: true
+    permalink: /newsletters/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "newsletters"
+    values:
+      layout: "newsletter"

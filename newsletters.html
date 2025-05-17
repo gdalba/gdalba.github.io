@@ -1,0 +1,150 @@
+---
+layout: default
+title: Newsletters
+navbar_title: Newsletters
+body_attr: >-
+  data-spy="scroll" data-target="#navbar-year" data-offset="100"
+---
+
+<div class="row mb-3">
+    <div class="col">
+        <ul class="nav nav-pills nav-justified" id="newsletters-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All Newsletters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="bioinformatics-tab" data-toggle="tab" href="#bioinformatics" role="tab" aria-controls="bioinformatics" aria-selected="false">Bioinformatics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="critical-thinking-tab" data-toggle="tab" href="#critical-thinking" role="tab" aria-controls="critical-thinking" aria-selected="false">Critical Thinking</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="tab-content" id="newsletters-tabContent">
+    <!-- All Newsletters Tab -->
+    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign newsletters_by_year = site.newsletters | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+                {% for year in newsletters_by_year %}
+                <h2 class="pt-4" id="year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-2 mb-md-0 p-md-3">
+                            {% if item.thumbnail %}
+                            <img src="{{ item.thumbnail | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                            {% else %}
+                            <div class="bg-light rounded-sm" style="height: 100px;"></div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small text-muted">{{ item.date | date: "%B %d, %Y" }}</p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in newsletters_by_year %}
+                    <a class="nav-link d-block" href="#year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bioinformatics Tab -->
+    <div class="tab-pane fade" id="bioinformatics" role="tabpanel" aria-labelledby="bioinformatics-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign bio_news = site.newsletters | where: "category", "bioinformatics" | sort: "date" | reverse %}
+                {% assign bio_news_by_year = bio_news | group_by_exp: "item", "item.date | date: '%Y'" %}
+                {% for year in bio_news_by_year %}
+                <h2 class="pt-4" id="bio-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-2 mb-md-0 p-md-3">
+                            {% if item.thumbnail %}
+                            <img src="{{ item.thumbnail | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                            {% else %}
+                            <div class="bg-light rounded-sm" style="height: 100px;"></div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small text-muted">{{ item.date | date: "%B %d, %Y" }}</p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-bio-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in bio_news_by_year %}
+                    <a class="nav-link d-block" href="#bio-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Critical Thinking Tab -->
+    <div class="tab-pane fade" id="critical-thinking" role="tabpanel" aria-labelledby="critical-thinking-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign ct_news = site.newsletters | where: "category", "critical thinking" | sort: "date" | reverse %}
+                {% assign ct_news_by_year = ct_news | group_by_exp: "item", "item.date | date: '%Y'" %}
+                {% for year in ct_news_by_year %}
+                <h2 class="pt-4" id="ct-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-2 mb-md-0 p-md-3">
+                            {% if item.thumbnail %}
+                            <img src="{{ item.thumbnail | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                            {% else %}
+                            <div class="bg-light rounded-sm" style="height: 100px;"></div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small text-muted">{{ item.date | date: "%B %d, %Y" }}</p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-ct-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in ct_news_by_year %}
+                    <a class="nav-link d-block" href="#ct-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
