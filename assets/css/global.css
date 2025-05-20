@@ -100,3 +100,14 @@ div.lazy {
 .experience-description {
     margin-bottom: 0;
 }
+
+.embed-responsive-item {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .embed-responsive {
+    height: 400px;
+  }
+}

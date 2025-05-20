@@ -1,0 +1,45 @@
+---
+layout: default
+---
+<div class="row">
+    <div class="col-12">
+        <div class="bg-white p-4 shadow-sm rounded-sm">
+            <h1 class="mb-3">{{ page.title }}</h1>
+            {% if page.date_range %}
+            <p class="text-muted"><em>{{ page.date_range }}</em></p>
+            {% endif %}
+            <hr>
+            
+            {% if page.image %}
+            <div class="text-center mb-4">
+                <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="img-fluid rounded" style="max-height: 400px;">
+            </div>
+            {% endif %}
+            
+            <div class="content">
+                {{ content }}
+            </div>
+            
+            {% if page.links %}
+            <div class="mt-4">
+                <h5>Resources</h5>
+                <ul class="list-group list-group-flush mb-4">
+                {% for link in page.links %}
+                    <li class="list-group-item">
+                        <i class="fa {% if link.url contains '.pdf' %}fa-file-pdf{% else %}fa-external-link-alt{% endif %}"></i> 
+                        <a href="{{ link.url | relative_url }}" {% unless link.url contains site.url or link.url contains '/' %}target="_blank"{% endunless %}>{{ link.name }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <hr>
+            <p class="text-right mt-4">
+                <a href="{{ '/outreach' | relative_url }}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Back to Outreach
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

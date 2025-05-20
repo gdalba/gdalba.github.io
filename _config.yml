@@ -44,6 +44,9 @@ collections:
   newsletters:
     output: true
     permalink: /newsletters/:path/
+  outreach: 
+    output: true
+    permalink: /outreach/:path/
 
 defaults:
   - scope:
@@ -51,3 +54,9 @@ defaults:
       type: "newsletters"
     values:
       layout: "newsletter"
+  - scope:
+      path: ""
+      type: "outreach"
+    values:
+      layout: "outreach"
+

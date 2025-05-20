@@ -1,0 +1,28 @@
+{% assign outreach = site.outreach | sort: "date_range" | reverse | slice: 0, include.limit %}
+
+<div class="my-3 bg-white shadow-sm rounded-sm">
+    <h6 class="p-3 mb-0 border-bottom border-gray"><i class="fas fa-bullhorn"></i> Recent Outreach</h6>
+    <div class="px-3">
+        {% for item in outreach %}
+        <div class="media py-2 {% unless forloop.first %}border-top border-gray{% endunless %}">
+            {% if item.image %}
+            <div class="mr-3" style="min-width: 60px; width: 60px;">
+                <img src="{{ item.image | relative_url }}" alt="{{ item.title }}" class="img-fluid rounded" style="width: 60px; height: 60px; object-fit: cover;">
+            </div>
+            {% endif %}
+            <div class="media-body">
+                <div class="d-flex">
+                    <div><a href="{{ item.url | relative_url }}">{{ item.title }}</a></div>
+                    <div class="ml-auto mt-auto text-muted no-break"><i>{{ item.date_range }}</i></div>
+                </div>
+                {% if item.excerpt %}
+                <p class="small text-muted mb-0">{{ item.excerpt }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <h6 class="d-block p-3 mt-0 text-right">
+        <a href="{{ 'outreach' | relative_url }}">All outreach activities <i class="fas fa-angle-double-right"></i></a>
+    </h6>
+</div>

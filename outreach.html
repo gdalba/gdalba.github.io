@@ -3,55 +3,233 @@ layout: default
 title: Outreach Activities
 navbar_title: Outreach
 body_attr: >-
-  data-spy="scroll" data-target="#navbar-sections" data-offset="100"
+  data-spy="scroll" data-target="#navbar-year" data-offset="100"
 ---
 
-<div class="row">
-    <div class="col-12 col-lg-10">
-        <h2 class="pt-4" id="section-blog">Science Communication</h2>
-        <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
-            
-            <div class="row no-gutters border-bottom border-gray">
-                <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
-                    <img src="/assets/images/outreach/blog.jpg" alt="Blog" class="w-100 rounded-sm">
+<div class="row mb-3">
+    <div class="col">
+        <ul class="nav nav-pills nav-justified" id="outreach-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All Outreach</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="science-communication-tab" data-toggle="tab" href="#science-communication" role="tab" aria-controls="science-communication" aria-selected="false">Science Communication</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="talks-tab" data-toggle="tab" href="#talks" role="tab" aria-controls="talks" aria-selected="false">Talks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="workshops-tab" data-toggle="tab" href="#workshops" role="tab" aria-controls="workshops" aria-selected="false">Workshops</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="community-engagement-tab" data-toggle="tab" href="#community-engagement" role="tab" aria-controls="community-engagement" aria-selected="false">Community Engagement</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="tab-content" id="outreach-tabContent">
+    <!-- All Outreach Tab -->
+    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign all_outreach_by_year = site.outreach | sort: "date_range" | reverse | group_by_exp: "item", "item.date_range | slice: 0, 4" %}
+                {% for year in all_outreach_by_year %}
+                <h2 class="pt-4" id="year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
+                            <img src="{{ item.image | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                        </div>
+                        <div class="col-md-9 col-xl-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small"><i>{{ item.date_range }}</i></p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                                {% if item.links[0] %}
+                                | <a target="_blank" href="{{ item.links[0].url }}">{{ item.links[0].name }}</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <div class="col-md-9 col-xl-10 p-3 pl-md-0">
-                    <h5 class="mt-0 mb-1 font-weight-normal">On the Trails of Reason (Nas Trilhas da Razão)</h5>
-                    <p class="mt-0 mb-0 small"><i>2015 - Present</i></p>
-                    <p class="mt-0 mb-0 small text-muted">
-                        Founded and maintain a science communication blog written in Portuguese-Brazil that explores topics in evolutionary biology, scientific thinking, and current science issues. The blog aims to make complex scientific concepts accessible to a general audience.
-                    </p>
-                    <p class="small pb-0 mb-0 lh-125 text-muted abstract-links">
-                        <a target="_blank" href="https://nastrilhasdarazao.wordpress.com/">[Visit Blog]</a>
-                    </p>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in all_outreach_by_year %}
+                    <a class="nav-link d-block" href="#year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
                 </div>
             </div>
-            
-        </div>
-        
-        <h2 class="pt-4" id="section-workshops">Community Engagement</h2>
-        <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
-            
-            <div class="row no-gutters">
-                <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
-                    <img src="/assets/images/outreach/workshop.jpg" alt="Workshop" class="w-100 rounded-sm">
-                </div>
-                <div class="col-md-9 col-xl-10 p-3 pl-md-0">
-                    <h5 class="mt-0 mb-1 font-weight-normal">TALKS/WORKSHOPS</h5>
-                    <p class="mt-0 mb-0 small"><i>2014 - Present</i></p>
-                    <p class="mt-0 mb-0 small text-muted">
-                        wip.
-                    </p>
-                </div>
-            </div>
-            
         </div>
     </div>
+    
+    <!-- Science Communication Tab -->
+    <div class="tab-pane fade" id="science-communication" role="tabpanel" aria-labelledby="science-communication-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign scicomm = site.outreach | where: "category", "science-communication" | sort: "date_range" | reverse %}
+                {% assign scicomm_by_year = scicomm | group_by_exp: "item", "item.date_range | slice: 0, 4" %}
+                {% for year in scicomm_by_year %}
+                <h2 class="pt-4" id="scicomm-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
+                            <img src="{{ item.image | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                        </div>
+                        <div class="col-md-9 col-xl-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small"><i>{{ item.date_range }}</i></p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                                {% if item.links[0] %}
+                                | <a target="_blank" href="{{ item.links[0].url }}">{{ item.links[0].name }}</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
 
-    <div class="col-2 d-none d-lg-block">
-        <div id="navbar-sections" class="nav nav-pills flex-column sticky-top" style="top: 80px">
-            <a class="nav-link d-block" href="#section-blog">Science Communication</a>
-            <a class="nav-link d-block" href="#section-workshops">Community Engagement</a>
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-scicomm-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in scicomm_by_year %}
+                    <a class="nav-link d-block" href="#scicomm-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Talks Tab -->
+    <div class="tab-pane fade" id="talks" role="tabpanel" aria-labelledby="talks-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign talks = site.outreach | where: "category", "talks" | sort: "date_range" | reverse %}
+                {% assign talks_by_year = talks | group_by_exp: "item", "item.date_range | slice: 0, 4" %}
+                {% for year in talks_by_year %}
+                <h2 class="pt-4" id="talks-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
+                            <img src="{{ item.image | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                        </div>
+                        <div class="col-md-9 col-xl-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small"><i>{{ item.date_range }}</i></p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                                {% if item.links[0] %}
+                                | <a target="_blank" href="{{ item.links[0].url }}">{{ item.links[0].name }}</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-talks-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in talks_by_year %}
+                    <a class="nav-link d-block" href="#talks-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Workshops Tab -->
+    <div class="tab-pane fade" id="workshops" role="tabpanel" aria-labelledby="workshops-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign workshops = site.outreach | where: "category", "workshops" | sort: "date_range" | reverse %}
+                {% assign workshops_by_year = workshops | group_by_exp: "item", "item.date_range | slice: 0, 4" %}
+                {% for year in workshops_by_year %}
+                <h2 class="pt-4" id="workshops-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
+                            <img src="{{ item.image | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                        </div>
+                        <div class="col-md-9 col-xl-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small"><i>{{ item.date_range }}</i></p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                                {% if item.links[0] %}
+                                | <a target="_blank" href="{{ item.links[0].url }}">{{ item.links[0].name }}</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-workshops-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in workshops_by_year %}
+                    <a class="nav-link d-block" href="#workshops-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Community Engagement Tab -->
+    <div class="tab-pane fade" id="community-engagement" role="tabpanel" aria-labelledby="community-engagement-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign community = site.outreach | where: "category", "community-engagement" | sort: "date_range" | reverse %}
+                {% assign community_by_year = community | group_by_exp: "item", "item.date_range | slice: 0, 4" %}
+                {% for year in community_by_year %}
+                <h2 class="pt-4" id="community-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
+                            <img src="{{ item.image | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                        </div>
+                        <div class="col-md-9 col-xl-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small"><i>{{ item.date_range }}</i></p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                                {% if item.links[0] %}
+                                | <a target="_blank" href="{{ item.links[0].url }}">{{ item.links[0].name }}</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-community-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in community_by_year %}
+                    <a class="nav-link d-block" href="#community-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
