@@ -1,6 +1,32 @@
 {
   "courses": [
     {
+      "id": "biol101",
+      "name": "BIOL 101 - Introduction to Biology",
+      "years": [2020, 2021, 2022],
+      "role": "Sessional Lecturer",
+      "evaluations": [
+        {
+          "year": 2020,
+          "term": "Fall",
+          "metrics": {
+            "overall_rating": 4.5,
+            "knowledge": 4.6,
+            "communication": 4.4,
+            "feedback": 4.5,
+            "availability": 4.7
+          },
+          "comments": [
+            "Gabriel was very approachable and always willing to help with any questions I had.",
+            "His explanations were clear and concise, making it easy to understand the material.",
+            "I appreciated the way he encouraged participation and made the tutorials interactive.",
+            "Gabriel's enthusiasm for biology was infectious and made the class enjoyable.",
+            "He provided constructive feedback on assignments that helped me improve my understanding."
+          ]
+        }
+      ]
+    },
+    {
       "id": "biol336",
       "name": "BIOL 336 - Fundamentals of Evolutionary Biology",
       "years": [2020, 2021, 2022, 2023],
