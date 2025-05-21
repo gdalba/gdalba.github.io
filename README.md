@@ -20,6 +20,8 @@ You can access my website at [gdalba.github.io](https://gdalba.github.io)
 
 This website is built using Jekyll and GitHub Pages, with a responsive design that works well on desktop and mobile devices. The site is regularly updated with new content, publications, and outreach activities.
 
+I am not knowledgeable on things such as javascript or html, I am supported heavily by AI-assisted coding in this project. Mainly [Claude 3.7 Sonnet](https://www.anthropic.com/news/claude-3-7-sonnet).
+
 ## Acknowledgements
 
 The website is based on the [academic-homepage](https://github.com/luost26/academic-homepage) template, which has been customized to suit my needs. Many thanks to the original creator of this excellent template!
