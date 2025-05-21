@@ -1,0 +1,74 @@
+{
+  "courses": [
+    {
+      "id": "biol336",
+      "name": "BIOL 336 - Fundamentals of Evolutionary Biology",
+      "years": [2020, 2021, 2022, 2023],
+      "role": "Teaching Assistant Coordinator",
+      "evaluations": [
+        {
+          "year": 2020,
+          "term": "Winter",
+          "metrics": {
+            "overall_rating": 4.8,
+            "knowledge": 4.9,
+            "communication": 4.7,
+            "feedback": 4.6,
+            "availability": 4.8
+          },
+          "comments": [
+            "Excellent at explaining complex concepts and making difficult topics accessible to everyone in the class.",
+            "Very helpful during office hours. Gabriel always made time to answer my questions and genuinely cared about my learning.",
+            "Made evolution interesting and approachable, even for students without a strong biology background.",
+            "I appreciated how Gabriel connected evolutionary concepts to real-world examples and current research.",
+            "The tutorials were engaging and interactive - much better than just lecturing at us."
+          ]
+        },
+        {
+          "year": 2021,
+          "term": "Winter",
+          "metrics": {
+            "overall_rating": 4.9,
+            "knowledge": 5.0,
+            "communication": 4.8,
+            "feedback": 4.7,
+            "availability": 4.9
+          },
+          "comments": [
+            "Always provides thoughtful feedback that helped me improve my understanding and writing.",
+            "Great at fostering discussions where everyone felt comfortable participating.",
+            "Very knowledgeable and passionate about evolutionary biology - it was contagious!",
+            "One of the most approachable TAs I've had at UBC. Always willing to help and never made me feel like my questions were silly.",
+            "I learned so much in Gabriel's tutorials. The way he explained concepts made difficult ideas click for me."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "biol335",
+      "name": "BIOL 335 - Molecular Genetics",
+      "years": [2021, 2022],
+      "role": "Teaching Assistant",
+      "evaluations": [
+        {
+          "year": 2021,
+          "term": "Fall",
+          "metrics": {
+            "overall_rating": 4.7,
+            "knowledge": 4.8,
+            "communication": 4.6,
+            "feedback": 4.7,
+            "availability": 4.5
+          },
+          "comments": [
+            "Makes complex genetic concepts easy to understand by breaking them down into manageable parts.",
+            "Very patient with questions, never rushed through explanations even when lab time was running short.",
+            "Excellent lab demonstrations that made procedures clear and less intimidating.",
+            "Gabriel has a talent for explaining difficult concepts in ways that actually make sense.",
+            "I appreciated how he connected what we were learning in lab to the broader course material and real research."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -111,3 +111,44 @@ div.lazy {
     height: 400px;
   }
 }
+
+/* Comment carousel styling */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.carousel-inner blockquote p {
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.carousel-indicators li {
+  background-color: #aaa;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+
+.carousel-indicators li.active {
+  background-color: #555;
+}
+
+/* Add a subtle quote mark */
+.carousel-inner blockquote p:before {
+  content: '"';
+  font-size: 1.5em;
+  opacity: 0.5;
+  position: relative;
+  top: 5px;
+}
+
+.carousel-inner blockquote p:after {
+  content: '"';
+  font-size: 1.5em;
+  opacity: 0.5;
+  position: relative;
+  top: 5px;
+}

@@ -48,5 +48,13 @@
     <!-- Custom scripts -->
     <script src="{{ '/assets/js/common.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/bubble_visual_hash.js' | relative_url }}"></script>
+    
+    <!-- For the teaching visualization -->
+    {% if page.use_teaching_viz %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+    <script src="{{ '/assets/js/teaching_viz.js' | relative_url }}"></script>
+    {% endif %}
 </body>
 </html>
