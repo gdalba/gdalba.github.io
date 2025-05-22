@@ -1,0 +1,302 @@
+{
+  "courses": [
+    {
+      "id": "BIOL336",
+      "name": "BIOL336 - Fundamentals of Evolutionary Biology",
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "role": "Teaching Assistant",
+      "evaluations": [
+        {
+          "year": 2020,
+          "term": "W2",
+          "metrics": {
+            "was_well_prepared.": 5.0,
+            "assistant_was_helpful.": 5.0,
+            "considerate_of_students.": 5.0,
+            "was_easily_understood.": 5.0,
+            "an_effective_instructor.": 5.0
+          },
+          "comments": [
+            "Gabriel was a fantastic TA and provided helpful advice all term. He was quick to answer questions and delivered the live tutorials well in way that was engaging and welcomed students to participate. He was easily reachable and approachable and gave solid feedback on assignments. Overall, Gabriel was a very effective instructor.",
+            "Gabriel was always so engaging in tutorials and he explained material very clearly while highlighting important aspects to get out of the readings. He was respectful towards\nstudents\u2019 questions and responses, and welcomed participation in a friendly way that made him easily approachable"
+          ]
+        },
+        {
+          "year": 2021,
+          "term": "W1",
+          "metrics": {
+            "was_well_prepared.": 4.8,
+            "assistant_was_helpful.": 5.0,
+            "considerate_of_students.": 5.0,
+            "was_easily_understood.": 4.9,
+            "an_effective_instructor.": 4.9
+          },
+          "comments": [
+            "actually have no suggestions for what Gabriel could do better. Gabriel's enthusiasm for science is contagious, and he is excellent at explaining concepts. His thorough feedback\non my assignments helped improve my scientific writing. Finally, Gabriel went above and beyond by making powerpoints for each tutorial, which helped further my understanding.\nAn excellent TA; probably one of the best teaching assistants I've ever had."
+          ]
+        },
+        {
+          "year": 2022,
+          "term": "S2",
+          "metrics": {
+            "was_well_prepared.": 3.21,
+            "assistant_was_helpful.": 3.21,
+            "considerate_of_students.": 3.21,
+            "was_easily_understood.": 3.21,
+            "an_effective_instructor.": 3.08
+          },
+          "comments": [
+            "Gabriel was a great TA who was always friendly, patient, and open to student questions. He was evidently deeply passionate about evolutionary biology and that enthusiasm\nshowed in his teaching and class discussions. My only critique of Gabriel as a TA is that sometimes he got a little too passionate about the course material and would\noccasionally go a bit over the allotted class time, but his tutorials were always interesting so I did not mind. All in all, Gabriel's tutorials were well\u2013run, informative, and engaging,\nmaking my experience in BIOL 336 tutorials a very positive one",
+            "Great tutorial lectures and introduced many topics and ideas tying philosophy and evolution together, was very eye opening and informative. Loved learning about different\napplication of evolution, and deep conversations about evolutionary biology.",
+            "Gabriel is amazingly amazing! He explained things so well and he was super considerate. Since tutorial 1 he made the environment seem super welcoming and safe. The\ninsights he gives throughout tutorials are great."
+          ]
+        },
+        {
+          "year": 2022,
+          "term": "W2",
+          "metrics": {
+            "was_well_prepared.": 4.67,
+            "assistant_was_helpful.": 4.17,
+            "considerate_of_students.": 4.5,
+            "was_easily_understood.": 4.67,
+            "an_effective_instructor.": 4.33
+          },
+          "comments": []
+        },
+        {
+          "year": 2023,
+          "term": "W1",
+          "metrics": {
+            "was_well_prepared.": 2.52,
+            "assistant_was_helpful.": 2.57,
+            "considerate_of_students.": 2.5,
+            "was_easily_understood.": 2.52,
+            "an_effective_instructor.": 2.48
+          },
+          "comments": []
+        },
+        {
+          "year": 2024,
+          "term": "S2",
+          "metrics": {
+            "was_well_prepared.": 5.0,
+            "assistant_was_helpful.": 5.0,
+            "considerate_of_students.": 5.0,
+            "was_easily_understood.": 4.89,
+            "an_effective_instructor.": 4.89
+          },
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "BMEG310",
+      "name": "BMEG310 - Introduction to Bioinformatics",
+      "years": [
+        2021
+      ],
+      "role": "Teaching Assistant",
+      "evaluations": []
+    },
+    {
+      "id": "BIOL438",
+      "name": "BIOL438 - Zoological Physics",
+      "years": [
+        2021,
+        2022,
+        2023
+      ],
+      "role": "Teaching Assistant",
+      "evaluations": [
+        {
+          "year": 2022,
+          "term": "W2",
+          "metrics": {
+            "was_well_prepared.": 2.4,
+            "assistant_was_helpful.": 3.0,
+            "considerate_of_students.": 2.6,
+            "was_easily_understood.": 3.2,
+            "an_effective_instructor.": 3.0
+          },
+          "comments": []
+        },
+        {
+          "year": 2023,
+          "term": "W2",
+          "metrics": {
+            "was_well_prepared.": 4.0,
+            "assistant_was_helpful.": 4.0,
+            "considerate_of_students.": 4.0,
+            "was_easily_understood.": 4.0,
+            "an_effective_instructor.": 4.0
+          },
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "BIOL335",
+      "name": "BIOL335 - Molecular Genetics",
+      "years": [
+        2022
+      ],
+      "role": "Teaching Assistant",
+      "evaluations": [
+        {
+          "year": 2022,
+          "term": "S1",
+          "metrics": {
+            "was_well_prepared.": 2.42,
+            "assistant_was_helpful.": 2.5,
+            "considerate_of_students.": 2.5,
+            "was_easily_understood.": 2.5,
+            "an_effective_instructor.": 2.5
+          },
+          "comments": [
+            "Gabriel is very helpful during the tutorials! He's patient with our questions and would explain them as explicit as he can. Very grateful that he's my TA :)",
+            "Very helpful and was willing to explain topics outside the realm of the course to help students understand any questions they had. Very passionate about his field."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BIOL230",
+      "name": "BIOL230 - Fundamentals of Ecology",
+      "years": [
+        2022,
+        2023
+      ],
+      "role": "Teaching Assistant",
+      "evaluations": [
+        {
+          "year": 2022,
+          "term": "W1",
+          "metrics": {
+            "was_well_prepared.": 4.21,
+            "assistant_was_helpful.": 4.21,
+            "considerate_of_students.": 4.64,
+            "was_easily_understood.": 4.14,
+            "an_effective_instructor.": 4.14
+          },
+          "comments": []
+        },
+        {
+          "year": 2023,
+          "term": "S1",
+          "metrics": {
+            "was_well_prepared.": 4.41,
+            "assistant_was_helpful.": 4.41,
+            "considerate_of_students.": 4.68,
+            "was_easily_understood.": 4.32,
+            "an_effective_instructor.": 4.23
+          },
+          "comments": [
+            "It is clear that Gabriel is very passionate about what he does and is eager to help students. He is very engaging and easily approachable. I really appreciate his kindness, humour, and explanations.",
+            "Gabriel is a very helpful and gentle TA. He is clearly knowledgeable and extremely willing to help with anything in the classroom and in labs.",
+            "Super engaged! Met me at the level I was at and helped me learn from there. Nice, inspiring and enthusiastic!"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BIOL180",
+      "name": "BIOL180 - Thinking Like a Life Scientist",
+      "years": [
+        2024
+      ],
+      "role": "Lecturer",
+      "evaluations": [
+        {
+          "year": 2024,
+          "term": "W1",
+          "metrics": {
+            "expected_to_learn.": 4.45,
+            "motivated_to_learn.": 4.35,
+            "i_could_understand.": 4.48,
+            "during_this_course.": 4.39,
+            "throughout_this_course.": 4.58,
+            "from_this_instructor.": 4.39,
+            "students_with_respect.": 4.90,
+            "the_learning_objectives.": 4.52,
+            "students_to_participate.": 4.81
+          },
+          "comments": [
+            "I think my instructor did a great job keeping up the humour in the room and managed to keep everyone interested in the class, even in its most dull moments. His unique enthusiasm is very entertaining, thus motivating us to be more engaged in the class and its work.",
+            "Your enthusiasm brought a lot of excitement to the class. Your genuine care for the students and their learning makes this class very enjoyable, and it feels like a safe space. I appreciate you always establishing your expectations for us, and teaching not only the facts of science, but some of the other realities of the field as well.",
+            "Professor provided clear structure for before class, during class, and after class assignments. Assessments were instructed in a clear way.",
+            "I believe that he taught with great enthusiasm and approached science with a humanistic lens that made the topics nuanced and interesting to learn about."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCIE113",
+      "name": "SCIE113 - First-Year Seminar in Science",
+      "years": [
+        2024
+      ],
+      "role": "Lecturer",
+      "evaluations": [
+        {
+          "year": 2024,
+          "term": "W1",
+          "metrics": {
+            "expected_to_learn.": 4.56,
+            "motivated_to_learn.": 4.36,
+            "i_could_understand.": 4.59,
+            "during_this_course.": 4.38,
+            "throughout_this_course.": 4.82,
+            "from_this_instructor.": 4.38,
+            "students_with_respect.": 4.82,
+            "the_learning_objectives.": 4.15,
+            "students_to_participate.": 4.69
+          },
+          "comments": [
+            "Dr Gabriel Dall'Alba is one of my favorite instructor this term. He is easy to negotiate with, replies email as soon as possible, very responsible and great job on giving the lessons.",
+            "Gabriel was very engaged and intered in the teaching this course. Every lecture was well thought out and I enjoyed his enthusiam in the course.",
+            "Gabriel is literally the best prof I've seen in UBC so far. Very helpful, friendly, and cooperative.",
+            "He was very respectful of differing ideas and made sure each student\u2019s idea was given thoughtful consideration. I appreciated this a lot because it made me more inclined to participate in class and I had a reduced fear of being wrong.",
+            "Gabriel would make a great deal of effort to support his students and took a big step up after losing our previous teacher. He was very considerate when coming to teach us and has done a great job so far.",
+            "Mr Dall'Alba is incredibly passionate about teaching and the philosophical side of science, which made classes engaging and incredibly interested. I enjoyed the additional real\u2013world examples that he added into his slides, and I enjoyed listening to his relevant experiences as a student, researcher, and teacher.",
+            "Gabriel did an excellent job picking up the course in Dr. Pete's absence, and was very understanding of the adjustment period, and taking each in class with grace. Gabriel was fantastic to interact with, and gave detailed feedback for writing assignments. Overall I enjoyed Gabriel and the way he ran the remainder of the class.",
+            "Professor Dall'Alba showed a lot of interest in teaching the course and gave great feedback. His lessons are well planned and I enjoyed attending the classes."
+          ]
+        },
+        {
+          "year": 2024,
+          "term": "W2",
+          "metrics": {
+            "expected_to_learn.": 4.73,
+            "motivated_to_learn.": 4.54,
+            "i_could_understand.": 4.57,
+            "during_this_course.": 4.51,
+            "throughout_this_course.": 4.84,
+            "from_this_instructor.": 4.59,
+            "students_with_respect.": 4.73,
+            "the_learning_objectives.": 4.57,
+            "students_to_participate.": 4.68
+          },
+          "comments": [
+            "He is one of the nicest instructor I ever had. He always choses words that very mindful and kind, and it made the atmosphere /attitude of the class more respectful. I usually do not raise my hands in other classes because I am usually not confident or brave enough, but in this class, I know that he tries to expand/interpret the ideas that I talked. So I was able to raise my hands a lot in this class. He is also very helpful in his office hours and his responses on the worksheets. also, he is very passionate about the topics covered in this class a lot. I used to hear that most of people do not care about scie 113, but he made this class very engaging.",
+            "Thank you so much for making scie113 such a nice class! Wish you all the best:)",
+            "Overall does a good job at prompting discussion and is very understanding of each student as an individual \u2013 in terms of their unique circumstances and perspectives",
+            "The instructor did an incredibly good job at inspiring students and relating course material and discussion to relevant science. The instructor was very respectful of his students, which led to a constructive classroom environment that facilitated learning.",
+            "Professor Dall'Alba was very willing to help me when I encountered challenges throughout my assignments. When I needed advice on how to communicate an idea for an essay, he was very helpful and patient during office hours. He was overall very approachable and open\u2013minded which encouraged me to keep doing my best. Essay writing is not my strong suit, but my instructor made sure to also give positive feedback and not just negative feedback.",
+            "He was always super super enthusiastic to teach + I felt like I could talk to him as a friend and he was really supportive all throughout term. I was scared at first because most people say he's a tough grader but I never felt that way at all, and his feedback was always centered positively/very very constructive and gentle criticism which I think really improved my writing. I loved this class!!",
+            "Gabriel was very encouraging and kind throughout the term. He made his expectations for the course very clear and gave very valuable feedback to improve our learning.",
+            "I really appreciate all the comment that the instructor have for me and every time when we have idea, we will discuss it together I think that is really useful and help me develop my thought on different perspectives.",
+            "Gabriel was a super supportive instructor, and he was always an open person to talk to! He supported me in and out of class, and he was extremely accessible for the numerous questions I had. Overall, Gabriel is a very kind instructor who really cared about my learning.",
+            "Gabriel was super supportive and helpful throughout the semester. He was available outside office hours and granted one\u2013on\u2013one feedback sessions which helped a great deal. Gabriel was also very understanding and empathetic towards his students situations and circumstances.",
+            "The instructor discussed complex and nuanced topics in a digestible and accessible format. He additionally provided effective examples and case studies to demonstrate these concepts and showed genuine interest in our learning."
+          ]
+        }
+      ]
+    }
+  ]
+}

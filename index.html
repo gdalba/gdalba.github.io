@@ -13,12 +13,18 @@ navbar_title: Home
     {% include widgets/experience_card.html %}
 {% endif %}
 
-{% if site.data.display.homepage.show_newsletters %}
-    {% assign count_newsletters = site.newsletters | size %}
-    {% if count_newsletters > 0 %}
-        {% include widgets/newsletter_card.html limit=site.data.display.homepage.num_newsletters %}
-    {% endif %}
-{% endif %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div id="homepage-comments-carousel" class="my-3">
+            <!-- Comments carousel will be injected here -->
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading comments...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% if site.data.display.homepage.show_selected_publications %}
     {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
@@ -35,3 +41,13 @@ navbar_title: Home
         {% include widgets/outreach_card.html limit=site.data.display.homepage.num_outreach %}
     {% endif %}
 {% endif %}
+
+{% if site.data.display.homepage.show_newsletters %}
+    {% assign count_newsletters = site.newsletters | size %}
+    {% if count_newsletters > 0 %}
+        {% include widgets/newsletter_card.html limit=site.data.display.homepage.num_newsletters %}
+    {% endif %}
+{% endif %}
+
+<!-- Add the script at the end of your index.html, before the closing </body> tag -->
+<script src="/assets/js/homepage_carousel.js"></script>

@@ -1,528 +1,694 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Load evaluation data
-  fetch('/assets/data/teaching_evaluations.json')
-    .then(response => response.json())
-    .then(data => {
-      // Split the data by role
-      const lecturerData = {
-        courses: data.courses.filter(course => course.role.toLowerCase().includes('lecturer') || course.role.toLowerCase().includes('instructor'))
-      };
-      
-      const taData = {
-        courses: data.courses.filter(course => 
-          course.role.toLowerCase().includes('teaching assistant') ||
-          course.role.toLowerCase().includes('ta')
-        )
-      };
-      
-      // Initialize visualizations for lecturers
-      if (lecturerData.courses.length > 0) {
-        initializeFilters(lecturerData, 'lecturer');
-        renderCharts(lecturerData, 'lecturer');
-      } else {
-        document.getElementById('lecturer').innerHTML = '<div class="alert alert-info">No lecturer data available yet.</div>';
-      }
-      
-      // Initialize visualizations for TAs
-      if (taData.courses.length > 0) {
-        initializeFilters(taData, 'ta');
-        renderCharts(taData, 'ta');
-      } else {
-        document.getElementById('ta').innerHTML = '<div class="alert alert-info">No teaching assistant data available yet.</div>';
-      }
-    })
-    .catch(error => console.error('Error loading evaluation data:', error));
-});
+// Simple caching and state management
+const chartInstances = {};
+const state = {
+  lecturer: { selectedCourse: null, selectedYear: null },
+  ta: { selectedCourse: null, selectedYear: null }
+};
+const chartWrapper = document.createElement('div');
+chartWrapper.style.height = '800px'; // Fixed height
+chartWrapper.style.maxHeight = '70vh'; // Responsive but limited
+chartWrapper.style.overflow = 'auto'; // Allow scrolling for many questions
 
-function renderCommentCarousel(data, role) {
-  // Get all comments from the data
-  const allComments = [];
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("Document loaded, starting visualization setup");
   
-  data.courses.forEach(course => {
-    course.evaluations.forEach(eval => {
-      eval.comments.forEach(comment => {
-        allComments.push({
-          text: comment,
-          course: course.name.split(' - ')[0],
-          year: eval.year,
-          term: eval.term
-        });
+  // Add debug checks for required libraries
+  console.log("Chart.js available:", typeof Chart !== 'undefined');
+  console.log("jQuery available:", typeof jQuery !== 'undefined' || typeof $ !== 'undefined');
+  
+  // Fetch teaching evaluation data
+  fetch('/assets/data/teaching_evaluations.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Loaded evaluation data:", data);
+      
+      if (!data || !data.courses || !Array.isArray(data.courses)) {
+        throw new Error('Invalid data format');
+      }
+      
+      // Simple role filtering
+      const roles = {
+        lecturer: data.courses.filter(c => c.role && c.role.toLowerCase().includes('lecturer')),
+        ta: data.courses.filter(c => c.role && (c.role.toLowerCase().includes('assistant') || c.role.toLowerCase().includes('ta')))
+      };
+      
+      console.log("Filtered roles:", roles);
+      
+      // Initialize each section if it has data
+      Object.entries(roles).forEach(([role, courses]) => {
+        if (courses.length > 0) {
+          setupSection(role, courses);
+        } else {
+          const container = document.getElementById(role);
+          if (container) {
+            container.innerHTML = '<div class="alert alert-info">No evaluation data available for this role.</div>';
+          }
+        }
+      });
+    })
+    .catch(error => {
+      console.error("Error loading evaluation data:", error);
+      document.querySelectorAll('#lecturer, #ta').forEach(el => {
+        el.innerHTML = `<div class="alert alert-danger">Error loading evaluation data: ${error.message}</div>`;
       });
     });
+});
+
+function setupSection(role, courses) {
+  console.log(`Setting up ${role} section with ${courses.length} courses`);
+  
+  // Setup course selector
+  const courseSelector = document.getElementById(`${role}-course-selector`);
+  if (!courseSelector) {
+    console.error(`Course selector #${role}-course-selector not found`);
+    return;
+  }
+  
+  // Clear existing options
+  courseSelector.innerHTML = '';
+  
+  // Add default option
+  const defaultOption = document.createElement('option');
+  defaultOption.textContent = '-- Select a course --';
+  defaultOption.value = '';
+  courseSelector.appendChild(defaultOption);
+  
+  // Add course options
+  courses.forEach(course => {
+    if (!course.evaluations || course.evaluations.length === 0) return;
+    
+    const option = document.createElement('option');
+    option.value = course.id;
+    option.textContent = `${course.id}: ${course.name}`;
+    courseSelector.appendChild(option);
   });
   
-  // Shuffle comments for variety
-  const shuffledComments = [...allComments].sort(() => 0.5 - Math.random());
+  // Set up course change handler
+  courseSelector.addEventListener('change', function() {
+    const courseId = this.value;
+    if (!courseId) {
+      resetSection(role);
+      return;
+    }
+    
+    // Find selected course
+    const course = courses.find(c => c.id === courseId);
+    if (!course) {
+      console.error(`Course ${courseId} not found`);
+      resetSection(role);
+      return;
+    }
+    
+    // Update state
+    state[role].selectedCourse = course;
+    state[role].selectedYear = null;
+    
+    // Update year filters
+    updateYearFilters(role);
+  });
   
-  // Get the carousel elements
-  const carouselInner = document.querySelector(`#${role}-comment-carousel .carousel-inner`);
-  const carouselIndicators = document.querySelector(`#${role}-comment-carousel .carousel-indicators`);
+  // Reset section initially
+  resetSection(role);
+}
+
+function resetSection(role) {
+  console.log(`Resetting ${role} section`);
+  
+  // Reset state
+  state[role].selectedYear = null;
+  
+  // Clear year filters
+  const yearFilters = document.getElementById(`${role}-year-filters`);
+  if (yearFilters) {
+    yearFilters.innerHTML = '';
+  }
+  
+  // Reset chart
+  const chartContainer = document.getElementById(`${role}-chart-container`);
+  if (chartContainer) {
+    chartContainer.innerHTML = '<div class="alert alert-info text-center">Select a course to view evaluation data.</div>';
+  }
+  
+  // Reset comments
+  const carouselInner = document.querySelector(`#${role}-comments-carousel .carousel-inner`);
+  const indicators = document.querySelector(`#${role}-comments-carousel .carousel-indicators`);
+  if (carouselInner) {
+    carouselInner.innerHTML = '<div class="carousel-item active"><div class="p-4 text-center">Select a course to view student comments.</div></div>';
+  }
+  if (indicators) {
+    indicators.innerHTML = '';
+  }
+  
+  // Destroy existing chart
+  if (chartInstances[role]) {
+    try {
+      chartInstances[role].destroy();
+    } catch (e) {
+      console.error("Error destroying chart:", e);
+    }
+    delete chartInstances[role];
+  }
+}
+
+function updateYearFilters(role) {
+  const course = state[role].selectedCourse;
+  if (!course) {
+    console.error(`No course selected for ${role}`);
+    return;
+  }
+  
+  console.log(`Updating year filters for ${role} with course ${course.id}`);
+  
+  const yearFilters = document.getElementById(`${role}-year-filters`);
+  if (!yearFilters) {
+    console.error(`Year filters #${role}-year-filters not found`);
+    return;
+  }
+  
+  // Clear existing filters
+  yearFilters.innerHTML = '';
+  
+  // Get unique years from evaluations
+  const years = [...new Set(course.evaluations.map(e => e.year))].sort((a, b) => b - a);
+  
+  if (years.length === 0) {
+    yearFilters.innerHTML = '<div class="alert alert-warning">No evaluation data available for this course.</div>';
+    return;
+  }
+  
+  // Create year buttons
+  years.forEach((year, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-sm btn-outline-secondary m-1';
+    btn.textContent = year;
+    
+    btn.addEventListener('click', function() {
+      // Update state
+      state[role].selectedYear = year;
+      
+      // Update active state of buttons
+      yearFilters.querySelectorAll('button').forEach(btn => {
+        btn.className = 'btn btn-sm btn-outline-secondary m-1';
+      });
+      this.className = 'btn btn-sm btn-primary m-1';
+      
+      // Update visualizations
+      updateVisualizations(role);
+    });
+    
+    yearFilters.appendChild(btn);
+  });
+  
+  // Select first year by default
+  if (years.length > 0) {
+    const firstBtn = yearFilters.querySelector('button');
+    if (firstBtn) {
+      firstBtn.click();
+    }
+  }
+}
+
+function updateVisualizations(role) {
+  const course = state[role].selectedCourse;
+  const year = state[role].selectedYear;
+  
+  if (!course || !year) {
+    console.error(`Missing course or year for ${role}`, { course, year });
+    return;
+  }
+  
+  console.log(`Updating visualizations for ${role}, course ${course.id}, year ${year}`);
+  
+  // Find evaluation for the selected year
+  const evaluation = course.evaluations.find(e => e.year === year);
+  
+  if (!evaluation) {
+    console.error(`No evaluation found for ${course.id}, year ${year}`);
+    return;
+  }
+  
+  // Update chart and comments
+  renderChart(role, course, evaluation);
+  renderComments(role, course, evaluation);
+}
+
+function renderChart(role, course, evaluation) {
+  const chartContainer = document.getElementById(`${role}-chart-container`);
+  if (!chartContainer) return;
+  
+  // Clear container
+  chartContainer.innerHTML = '';
+  
+  // Destroy existing chart
+  if (chartInstances[role]) {
+    try {
+      chartInstances[role].destroy();
+    } catch (e) { /* ignore */ }
+    delete chartInstances[role];
+  }
+  
+  // Create header
+  const header = document.createElement('div');
+  header.className = 'text-center mb-3';
+  header.innerHTML = `
+    <h5>${course.id}: ${course.name}</h5>
+    <p class="text-muted">${evaluation.term || ''} ${evaluation.year} - Responses: ${evaluation.n || 'N/A'}</p>
+  `;
+  chartContainer.appendChild(header);
+  
+  // Check if metrics exist
+  if (!evaluation.metrics || Object.keys(evaluation.metrics).length === 0) {
+    chartContainer.innerHTML += '<div class="alert alert-info">No metrics data available for this evaluation.</div>';
+    return;
+  }
+  
+  // Create a wrapper div with constrained height
+  const chartWrapper = document.createElement('div');
+  chartWrapper.style.height = '400px'; // Fixed height to prevent infinite growth
+  chartWrapper.style.maxHeight = '70vh'; // Responsive but limited
+  chartWrapper.style.overflow = 'auto'; // Allow scrolling if content exceeds height
+  chartContainer.appendChild(chartWrapper);
+  
+  // Create canvas
+  const canvas = document.createElement('canvas');
+  canvas.id = `${role}-chart-canvas`;
+  chartWrapper.appendChild(canvas);
+  
+  // Process metrics
+  const metrics = Object.entries(evaluation.metrics).map(([key, data]) => ({
+    key,
+    question: data.question || key,
+    SD: data.SD || 0,
+    D: data.D || 0,
+    N: data.N || 0,
+    A: data.A || 0,
+    SA: data.SA || 0
+  }));
+  
+  // Sort metrics alphabetically by question
+  metrics.sort((a, b) => a.question.localeCompare(b.question));
+  
+  // Extract questions and counts
+  const questions = metrics.map(m => m.question);
+  const sdData = metrics.map(m => m.SD);
+  const dData = metrics.map(m => m.D);
+  const nData = metrics.map(m => m.N);
+  const aData = metrics.map(m => m.A);
+  const saData = metrics.map(m => m.SA);
+  
+  // Calculate dynamic chart height based on number of questions
+  // This ensures each question has adequate space
+  const minHeightPerQuestion = 40; // pixels per question
+  let chartHeight = Math.max(300, questions.length * minHeightPerQuestion);
+  canvas.style.height = `${chartHeight}px`;
+  
+  // Create chart
+  chartInstances[role] = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: questions,
+      datasets: [
+        {
+          label: 'Strongly Agree',
+          data: saData,
+          backgroundColor: 'rgba(40, 167, 69, 0.8)'
+        },
+        {
+          label: 'Agree',
+          data: aData,
+          backgroundColor: 'rgba(92, 184, 92, 0.8)'
+        },
+        {
+          label: 'Neutral',
+          data: nData,
+          backgroundColor: 'rgba(255, 193, 7, 0.8)'
+        },
+        {
+          label: 'Disagree',
+          data: dData,
+          backgroundColor: 'rgba(220, 53, 69, 0.7)'
+        },
+        {
+          label: 'Strongly Disagree',
+          data: sdData,
+          backgroundColor: 'rgba(204, 0, 0, 0.8)'
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false, // Allow custom height
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const label = context.dataset.label || '';
+              const value = context.raw || 0;
+              const total = evaluation.n || 0;
+              const percentage = total > 0 ? (value / total * 100).toFixed(1) : 'N/A';
+              return `${label}: ${value} (${percentage}%)`;
+            }
+          }
+        },
+        legend: {
+          position: 'bottom'
+        }
+      },
+      scales: {
+        x: {
+          stacked: false,
+          title: {
+            display: true,
+            text: 'Number of Responses'
+          },
+          ticks: {
+            precision: 0
+          }
+        },
+        y: {
+          stacked: false,
+          ticks: {
+            callback: function(value) {
+              const label = this.getLabelForValue(value);
+              return label.length > 50 ? label.substr(0, 47) + '...' : label;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function renderComments(role, course, evaluation) {
+  const carouselInner = document.querySelector(`#${role}-comments-carousel .carousel-inner`);
+  const indicators = document.querySelector(`#${role}-comments-carousel .carousel-indicators`);
+  
+  if (!carouselInner || !indicators) return;
   
   // Clear existing content
   carouselInner.innerHTML = '';
-  carouselIndicators.innerHTML = '';
+  indicators.innerHTML = '';
   
-  // Add comments to carousel
-  shuffledComments.forEach((comment, i) => {
+  // Check if comments exist
+  if (!evaluation.comments || !Array.isArray(evaluation.comments) || evaluation.comments.length === 0) {
+    carouselInner.innerHTML = '<div class="carousel-item active"><div class="p-4 text-center">No comments available for this course.</div></div>';
+    return;
+  }
+  
+  // Create carousel items
+  evaluation.comments.forEach((comment, index) => {
+    if (!comment) return;
+    
+    // Create carousel item
+    const item = document.createElement('div');
+    item.className = `carousel-item${index === 0 ? ' active' : ''}`;
+    
+    // Add content
+    const escapedComment = comment
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+    
+    item.innerHTML = `
+      <div class="p-4">
+        <blockquote class="blockquote">
+          <p class="mb-0">"${escapedComment}"</p>
+          <footer class="blockquote-footer text-right">
+            ${course.id} (${evaluation.term || ''} ${evaluation.year})
+          </footer>
+        </blockquote>
+      </div>
+    `;
+    
+    carouselInner.appendChild(item);
+    
     // Create indicator
     const indicator = document.createElement('li');
-    indicator.setAttribute('data-target', `#${role}-comment-carousel`);
-    indicator.setAttribute('data-slide-to', i);
-    if (i === 0) indicator.classList.add('active');
-    carouselIndicators.appendChild(indicator);
-    
-    // Create slide
-    const item = document.createElement('div');
-    item.className = `carousel-item ${i === 0 ? 'active' : ''}`;
-    
-    const blockquote = document.createElement('blockquote');
-    blockquote.className = 'blockquote mb-0';
-    
-    const p = document.createElement('p');
-    p.innerHTML = `"${comment.text}"`;
-    
-    const footer = document.createElement('footer');
-    footer.className = 'blockquote-footer text-right';
-    footer.innerHTML = `Student, ${comment.course} (${comment.term} ${comment.year})`;
-    
-    blockquote.appendChild(p);
-    blockquote.appendChild(footer);
-    item.appendChild(blockquote);
-    carouselInner.appendChild(item);
-  });
-}
-
-function updateCommentCarousel(filteredData, role) {
-  renderCommentCarousel(filteredData, role);
-}
-
-function initializeFilters(data, role) {
-  // Get unique years across all courses
-  const allYears = new Set();
-  data.courses.forEach(course => {
-    course.years.forEach(year => allYears.add(year));
+    indicator.dataset.target = `#${role}-comments-carousel`;
+    indicator.dataset.slideTo = index;
+    if (index === 0) indicator.className = 'active';
+    indicators.appendChild(indicator);
   });
   
-  // Sort years in ascending order
-  const years = Array.from(allYears).sort();
-  
-  // Create year filter buttons
-  const yearFiltersContainer = document.getElementById(`${role}-year-filters`);
-  years.forEach(year => {
-    const btn = document.createElement('button');
-    btn.className = `btn btn-sm btn-outline-primary m-1 ${role}-year-filter active`;
-    btn.textContent = year;
-    btn.dataset.year = year;
-    btn.addEventListener('click', function() {
-      this.classList.toggle('active');
-      updateCharts(role);
-    });
-    yearFiltersContainer.appendChild(btn);
-  });
-  
-  // Create course filter buttons
-  const courseFiltersContainer = document.getElementById(`${role}-course-filters`);
-  data.courses.forEach(course => {
-    const btn = document.createElement('button');
-    btn.className = `btn btn-sm btn-outline-secondary m-1 ${role}-course-filter active`;
-    btn.textContent = course.name.split(' - ')[0]; // Just the course code
-    btn.dataset.courseId = course.id;
-    btn.addEventListener('click', function() {
-      this.classList.toggle('active');
-      updateCharts(role);
-    });
-    courseFiltersContainer.appendChild(btn);
-  });
-  
-  // Add "Select All" buttons
-  const allYearsBtn = document.createElement('button');
-  allYearsBtn.className = 'btn btn-sm btn-primary m-1';
-  allYearsBtn.textContent = 'All Years';
-  allYearsBtn.addEventListener('click', function() {
-    const yearBtns = document.querySelectorAll(`.${role}-year-filter`);
-    const allActive = Array.from(yearBtns).every(btn => btn.classList.contains('active'));
-    
-    yearBtns.forEach(btn => {
-      if (allActive) {
-        btn.classList.remove('active');
-      } else {
-        btn.classList.add('active');
-      }
-    });
-    updateCharts(role);
-  });
-  yearFiltersContainer.insertBefore(allYearsBtn, yearFiltersContainer.firstChild);
-  
-  const allCoursesBtn = document.createElement('button');
-  allCoursesBtn.className = 'btn btn-sm btn-secondary m-1';
-  allCoursesBtn.textContent = 'All Courses';
-  allCoursesBtn.addEventListener('click', function() {
-    const courseBtns = document.querySelectorAll(`.${role}-course-filter`);
-    const allActive = Array.from(courseBtns).every(btn => btn.classList.contains('active'));
-    
-    courseBtns.forEach(btn => {
-      if (allActive) {
-        btn.classList.remove('active');
-      } else {
-        btn.classList.add('active');
-      }
-    });
-    updateCharts(role);
-  });
-  courseFiltersContainer.insertBefore(allCoursesBtn, courseFiltersContainer.firstChild);
-}
-
-// Create global variables for charts
-const charts = {
-  lecturer: {
-    barChart: null,
-    radarChart: null,
-    wordCloud: null
-  },
-  ta: {
-    barChart: null,
-    radarChart: null,
-    wordCloud: null
+  // Initialize carousel
+  try {
+    if (typeof $ !== 'undefined') {
+      $(`#${role}-comments-carousel`).carousel();
+    }
+  } catch (e) {
+    console.warn('Could not initialize carousel', e);
   }
-};
+}
 
-function renderCharts(data, role) {
-  // Initial chart rendering
-  renderBarChart(data, role);
-  renderRadarChart(data, role);
-  renderWordCloud(data, role);
-  renderCommentCarousel(data, role); // Add this line
-  
-  // Set up update function
-  if (!window.updateChartsForRole) {
-    window.updateChartsForRole = {};
+// Update the renderWordCloud function to fix the ID mismatch and improve error handling
+
+function renderWordCloud(role, course, evaluation) {
+  // Fix ID mismatch - your HTML uses 'comment-word-cloud' without any 's'
+  const wordCloudContainer = document.getElementById(`${role}-comment-word-cloud`);
+  if (!wordCloudContainer) {
+    console.error(`Word cloud container #${role}-comment-word-cloud not found`);
+    return;
   }
   
-  window.updateChartsForRole[role] = function() {
-    const selectedYears = Array.from(document.querySelectorAll(`.${role}-year-filter.active`))
-      .map(btn => parseInt(btn.dataset.year));
-    
-    const selectedCourses = Array.from(document.querySelectorAll(`.${role}-course-filter.active`))
-      .map(btn => btn.dataset.courseId);
-    
-    const filteredData = filterData(data, selectedYears, selectedCourses);
-    updateBarChart(filteredData, role);
-    updateRadarChart(filteredData, role);
-    updateWordCloud(filteredData, role);
-    updateCommentCarousel(filteredData, role); // Add this line
-  };
+  // Clear existing content
+  wordCloudContainer.innerHTML = '';
   
-  // Global update function that can be called from HTML
-  window.updateCharts = function(role) {
-    if (window.updateChartsForRole && window.updateChartsForRole[role]) {
-      window.updateChartsForRole[role]();
+  // Check if comments exist
+  if (!evaluation.comments || !Array.isArray(evaluation.comments) || evaluation.comments.length === 0) {
+    wordCloudContainer.innerHTML = '<div class="alert alert-info text-center">No comments available for word cloud generation.</div>';
+    return;
+  }
+  
+  // Show loading indicator
+  wordCloudContainer.innerHTML = '<div class="text-center" id="word-cloud-loading"><div class="spinner-border text-primary"></div><p class="mt-2">Generating word cloud...</p></div>';
+
+  try {
+    // Check for d3 and cloud layout
+    if (typeof d3 === 'undefined') {
+      throw new Error('D3.js library not available');
     }
-  };
-}
 
-function filterData(data, years, courseIds) {
-  // Filter courses by ID
-  const filteredCourses = data.courses.filter(course => courseIds.includes(course.id));
-  
-  // For each course, filter evaluations by year
-  const result = {
-    courses: filteredCourses.map(course => {
-      return {
-        ...course,
-        evaluations: course.evaluations.filter(eval => years.includes(eval.year))
-      };
-    })
-  };
-  
-  return result;
-}
-
-function renderBarChart(data, role) {
-  const ctx = document.getElementById(`${role}-overall-ratings-chart`).getContext('2d');
-  
-  // Process data for the chart
-  const chartData = processDataForBarChart(data);
-  
-  charts[role].barChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: chartData.labels,
-      datasets: chartData.datasets
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Overall Ratings by Course and Year'
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 5,
-          title: {
-            display: true,
-            text: 'Rating (out of 5)'
-          }
-        }
-      }
+    if (typeof d3.layout === 'undefined' || typeof d3.layout.cloud === 'undefined') {
+      throw new Error('D3 cloud layout not available');
     }
-  });
-}
 
-function processDataForBarChart(data) {
-  // Group data by course, then by year
-  const labels = [];
-  const datasets = [];
-  
-  // Create a color palette
-  const colors = [
-    'rgba(54, 162, 235, 0.7)',
-    'rgba(255, 99, 132, 0.7)',
-    'rgba(75, 192, 192, 0.7)',
-    'rgba(255, 206, 86, 0.7)',
-    'rgba(153, 102, 255, 0.7)',
-    'rgba(255, 159, 64, 0.7)',
-    'rgba(199, 199, 199, 0.7)'
-  ];
-  
-  // For each course, create a dataset
-  data.courses.forEach((course, i) => {
-    const dataPoints = [];
+    // Combine all comments into one text
+    const text = evaluation.comments.join(' ');
     
-    course.evaluations.forEach(eval => {
-      // Add year-term to labels if not already present
-      const yearLabel = `${eval.year} ${eval.term}`;
-      if (!labels.includes(yearLabel)) {
-        labels.push(yearLabel);
-      }
-      
-      // Sort labels chronologically
-      labels.sort((a, b) => {
-        const yearA = parseInt(a.split(' ')[0]);
-        const yearB = parseInt(b.split(' ')[0]);
-        if (yearA !== yearB) return yearA - yearB;
-        return a.localeCompare(b);
-      });
-      
-      // Set data point at the correct position
-      const dataIndex = labels.indexOf(yearLabel);
-      dataPoints[dataIndex] = eval.metrics.overall_rating;
-    });
+    // Process text to get word counts
+    const words = processText(text);
     
-    // Fill in missing data points with null
-    const filledDataPoints = [];
-    for (let i = 0; i < labels.length; i++) {
-      filledDataPoints[i] = dataPoints[i] !== undefined ? dataPoints[i] : null;
+    // Check if we have enough words
+    if (words.length < 3) {
+      wordCloudContainer.innerHTML = '<div class="alert alert-info text-center">Not enough unique words for a meaningful word cloud.</div>';
+      return;
     }
     
-    datasets.push({
-      label: course.name.split(' - ')[0],
-      data: filledDataPoints,
-      backgroundColor: colors[i % colors.length],
-      borderColor: colors[i % colors.length].replace('0.7', '1'),
-      borderWidth: 1
-    });
-  });
-  
-  return { labels, datasets };
-}
-
-function updateBarChart(filteredData, role) {
-  const chartData = processDataForBarChart(filteredData);
-  
-  charts[role].barChart.data.labels = chartData.labels;
-  charts[role].barChart.data.datasets = chartData.datasets;
-  charts[role].barChart.update();
-}
-
-function renderRadarChart(data, role) {
-  const ctx = document.getElementById(`${role}-metrics-radar-chart`).getContext('2d');
-  
-  // Process data for the chart
-  const chartData = processDataForRadarChart(data);
-  
-  charts[role].radarChart = new Chart(ctx, {
-    type: 'radar',
-    data: {
-      labels: ['Knowledge', 'Communication', 'Feedback', 'Availability', 'Overall Rating'],
-      datasets: chartData
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Teaching Metrics Breakdown'
-        }
-      },
-      scales: {
-        r: {
-          min: 0,
-          max: 5,
-          ticks: {
-            stepSize: 1
-          }
-        }
-      }
-    }
-  });
-}
-
-function processDataForRadarChart(data) {
-  // Create a color palette
-  const colors = [
-    'rgba(54, 162, 235, 0.5)',
-    'rgba(255, 99, 132, 0.5)',
-    'rgba(75, 192, 192, 0.5)',
-    'rgba(255, 206, 86, 0.5)',
-    'rgba(153, 102, 255, 0.5)',
-    'rgba(255, 159, 64, 0.5)',
-    'rgba(199, 199, 199, 0.5)'
-  ];
-  
-  const datasets = [];
-  
-  // For each course
-  data.courses.forEach((course, i) => {
-    course.evaluations.forEach(eval => {
-      const dataset = {
-        label: `${course.name.split(' - ')[0]} (${eval.year} ${eval.term})`,
-        data: [
-          eval.metrics.knowledge,
-          eval.metrics.communication,
-          eval.metrics.feedback,
-          eval.metrics.availability,
-          eval.metrics.overall_rating
-        ],
-        backgroundColor: colors[i % colors.length],
-        borderColor: colors[i % colors.length].replace('0.5', '1'),
-        borderWidth: 1
-      };
-      
-      datasets.push(dataset);
-    });
-  });
-  
-  return datasets;
-}
-
-function updateRadarChart(filteredData, role) {
-  const chartData = processDataForRadarChart(filteredData);
-  charts[role].radarChart.data.datasets = chartData;
-  charts[role].radarChart.update();
-}
-
-function renderWordCloud(data, role) {
-  const container = document.getElementById(`${role}-comment-word-cloud`);
-  
-  // Get all comments
-  const allComments = [];
-  data.courses.forEach(course => {
-    course.evaluations.forEach(eval => {
-      allComments.push(...eval.comments);
-    });
-  });
-  
-  // Generate word frequency
-  const words = processCommentsForWordCloud(allComments);
-  
-  // Use D3.js for the word cloud
-  charts[role].wordCloud = d3.layout.cloud()
-    .size([500, 300])
-    .words(words.map(d => ({ text: d.word, size: 10 + d.count * 5 })))
-    .padding(5)
-    .rotate(() => ~~(Math.random() * 2) * 90)
-    .font("Impact")
-    .fontSize(d => d.size)
-    .on("end", drawWordCloud(container))
-    .start();
-}
-
-function drawWordCloud(container) {
-  return function(words) {
-    container.innerHTML = "";
+    console.log(`Generating word cloud with ${words.length} words`);
     
-    const svg = d3.select(container)
+    // Create SVG container
+    const width = wordCloudContainer.clientWidth || 400; // Fallback width if clientWidth is 0
+    const height = 300; // Fixed height as defined in your HTML
+    
+    // Remove loading indicator before adding SVG
+    const loadingIndicator = document.getElementById('word-cloud-loading');
+    if (loadingIndicator) {
+      loadingIndicator.remove();
+    }
+    
+    const svg = d3.select(wordCloudContainer)
       .append("svg")
-        .attr("width", 500)
-        .attr("height", 300)
-        .attr("class", "mx-auto d-block")
+      .attr("width", "100%")
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr("preserveAspectRatio", "xMidYMid meet")
       .append("g")
-        .attr("transform", "translate(250,150)");
-        
-    svg.selectAll("text")
+      .attr("transform", `translate(${width / 2},${height / 2})`);
+    
+    // Define the draw function before starting the cloud layout
+    function draw(words) {
+      svg.selectAll("text")
         .data(words)
-      .enter().append("text")
+        .enter().append("text")
         .style("font-size", d => `${d.size}px`)
-        .style("font-family", "Impact")
-        .style("fill", (d, i) => d3.schemeCategory10[i % 10])
+        .style("font-family", "Arial, sans-serif")
+        .style("fill", () => {
+          // Generate a random color from a professional palette
+          const colors = [
+            "#4285F4", // Google Blue
+            "#34A853", // Google Green
+            "#FBBC05", // Google Yellow
+            "#EA4335", // Google Red
+            "#5F6368", // Google Grey
+            "#1A73E8", // Lighter Blue
+            "#174EA6"  // Darker Blue
+          ];
+          return colors[Math.floor(Math.random() * colors.length)];
+        })
         .attr("text-anchor", "middle")
-        .attr("transform", d => `translate(${d.x},${d.y})rotate(${d.rotate})`)
+        .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
         .text(d => d.text);
-  };
+    }
+    
+    // Set a timeout to prevent UI freezing and ensure async operation
+    setTimeout(() => {
+      try {
+        // Generate cloud layout
+        d3.layout.cloud()
+          .size([width, height])
+          .words(words.map(d => ({ text: d.text, size: d.size })))
+          .padding(5)
+          .rotate(() => ~~(Math.random() * 2) * 90) // Only horizontal and vertical
+          .fontSize(d => d.size)
+          .on("end", draw)
+          .start();
+      } catch (err) {
+        console.error("Error in word cloud generation:", err);
+        wordCloudContainer.innerHTML = `<div class="alert alert-danger text-center">Error generating word cloud: ${err.message}</div>`;
+      }
+    }, 100);
+    
+  } catch (error) {
+    console.error("Error generating word cloud:", error);
+    wordCloudContainer.innerHTML = `<div class="alert alert-danger text-center">Error generating word cloud: ${error.message}</div>`;
+  }
 }
 
-function processCommentsForWordCloud(comments) {
-  // Common English words to filter out
+// Helper function to process text for word cloud
+function processText(text) {
+  // Convert to lowercase and remove punctuation
+  const words = text.toLowerCase()
+    .replace(/[^\w\s]|_/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(" ");
+  
+  // Remove common stop words
   const stopWords = new Set([
-    'a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'as', 
-    'at', 'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by', 'can',
-    'did', 'do', 'does', 'doing', 'down', 'during', 'each', 'few', 'for', 'from', 'further', 'had',
-    'has', 'have', 'having', 'he', 'her', 'here', 'hers', 'herself', 'him', 'himself', 'his', 'how',
-    'i', 'if', 'in', 'into', 'is', 'it', 'its', 'itself', 'me', 'more', 'most', 'my', 'myself', 'no',
-    'nor', 'not', 'of', 'off', 'on', 'once', 'only', 'or', 'other', 'ought', 'our', 'ours', 'ourselves',
-    'out', 'over', 'own', 'same', 'she', 'should', 'so', 'some', 'such', 'than', 'that', 'the', 'their',
-    'theirs', 'them', 'themselves', 'then', 'there', 'these', 'they', 'this', 'those', 'through', 'to',
-    'too', 'under', 'until', 'up', 'very', 'was', 'we', 'were', 'what', 'when', 'where', 'which', 'while',
-    'who', 'whom', 'why', 'with', 'would', 'you', 'your', 'yours', 'yourself', 'yourselves'
+    "gabriel","alba","dall","gabe", "dall'alba", "a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't", 
+    "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "can't", 
+    "cannot", "could", "couldn't", "did", "didn't", "do", "does", "doesn't", "doing", "don't", "down", "during", 
+    "each", "few", "for", "from", "further", "had", "hadn't", "has", "hasn't", "have", "haven't", "having", "he", 
+    "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself", "him", "himself", "his", "how", "how's", 
+    "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is", "isn't", "it", "it's", "its", "itself", "let's", 
+    "me", "more", "most", "mustn't", "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", 
+    "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", 
+    "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", 
+    "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're", "they've", "this", 
+    "those", "through", "to", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", 
+    "we've", "were", "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who", 
+    "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd", "you'll", "you're", 
+    "you've", "your", "yours", "yourself", "yourselves",
+    // Add domain-specific stop words
+    "course", "class", "professor", "instructor", "lecture", "teacher", "student", "ta", "teaching", "assistant", "semester"
   ]);
   
-  // Count word frequencies
-  const wordCounts = {};
-  comments.forEach(comment => {
-    const words = comment.toLowerCase().match(/\b(\w+)\b/g) || [];
-    words.forEach(word => {
-      if (!stopWords.has(word) && word.length > 2) {
-        wordCounts[word] = (wordCounts[word] || 0) + 1;
-      }
-    });
+  // Count word frequency
+  const wordCount = {};
+  words.forEach(word => {
+    if (word.length > 2 && !stopWords.has(word)) {
+      wordCount[word] = (wordCount[word] || 0) + 1;
+    }
   });
   
   // Convert to array and sort by frequency
-  const wordArray = Object.keys(wordCounts).map(word => ({
-    word,
-    count: wordCounts[word]
-  }));
+  const wordArray = Object.entries(wordCount)
+    .map(([text, count]) => ({ text, count }))
+    .sort((a, b) => b.count - a.count);
   
-  return wordArray.sort((a, b) => b.count - a.count).slice(0, 50); // Top 50 words
+  // Take top 50 words max
+  const topWords = wordArray.slice(0, 50);
+  
+  // Scale font sizes between 12 and 50 based on frequency
+  const minCount = Math.min(...topWords.map(w => w.count));
+  const maxCount = Math.max(...topWords.map(w => w.count));
+  const minSize = 14;
+  const maxSize = 50;
+  
+  return topWords.map(word => ({
+    text: word.text,
+    size: maxCount > minCount 
+      ? minSize + (word.count - minCount) / (maxCount - minCount) * (maxSize - minSize)
+      : 25  // If all words have same count, use medium size
+  }));
 }
 
-function updateWordCloud(filteredData, role) {
-  // Get filtered comments
-  const filteredComments = [];
-  filteredData.courses.forEach(course => {
-    course.evaluations.forEach(eval => {
-      filteredComments.push(...eval.comments);
-    });
-  });
+function updateVisualizations(role) {
+  const course = state[role].selectedCourse;
+  const year = state[role].selectedYear;
   
-  // Generate word frequency from filtered comments
-  const words = processCommentsForWordCloud(filteredComments);
+  if (!course || !year) {
+    console.error(`Missing course or year for ${role}`, { course, year });
+    return;
+  }
   
-  // Update the word cloud
-  const container = document.getElementById(`${role}-comment-word-cloud`);
+  console.log(`Updating visualizations for ${role}, course ${course.id}, year ${year}`);
   
-  // Create new word cloud
-  charts[role].wordCloud
-    .words(words.map(d => ({ text: d.word, size: 10 + d.count * 5 })))
-    .on("end", drawWordCloud(container))
-    .start();
+  // Find evaluation for the selected year
+  const evaluation = course.evaluations.find(e => e.year === year);
+  
+  if (!evaluation) {
+    console.error(`No evaluation found for ${course.id}, year ${year}`);
+    return;
+  }
+  
+  // Update chart and comments
+  renderChart(role, course, evaluation);
+  renderComments(role, course, evaluation);
+  renderWordCloud(role, course, evaluation);  // Add this line
+}
+
+// Also update resetSection to reset the word cloud
+function resetSection(role) {
+  console.log(`Resetting ${role} section`);
+  
+  // Reset state
+  state[role].selectedYear = null;
+  
+  // Clear year filters
+  const yearFilters = document.getElementById(`${role}-year-filters`);
+  if (yearFilters) {
+    yearFilters.innerHTML = '';
+  }
+  
+  // Reset chart
+  const chartContainer = document.getElementById(`${role}-chart-container`);
+  if (chartContainer) {
+    chartContainer.innerHTML = '<div class="alert alert-info text-center">Select a course to view evaluation data.</div>';
+  }
+  
+  // Reset comments
+  const carouselInner = document.querySelector(`#${role}-comments-carousel .carousel-inner`);
+  const indicators = document.querySelector(`#${role}-comments-carousel .carousel-indicators`);
+  if (carouselInner) {
+    carouselInner.innerHTML = '<div class="carousel-item active"><div class="p-4 text-center">Select a course to view student comments.</div></div>';
+  }
+  if (indicators) {
+    indicators.innerHTML = '';
+  }
+  
+  // Reset word cloud
+  const wordCloudContainer = document.getElementById(`${role}-comment-word-cloud`);
+  if (wordCloudContainer) {
+    wordCloudContainer.innerHTML = '<div class="alert alert-info text-center">Select a course to generate word cloud.</div>';
+  }
+  
+  // Destroy existing chart
+  if (chartInstances[role]) {
+    try {
+      chartInstances[role].destroy();
+    } catch (e) {
+      console.error("Error destroying chart:", e);
+    }
+    delete chartInstances[role];
+  }
 }
