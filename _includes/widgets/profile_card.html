@@ -40,9 +40,17 @@
                         <div class="text-profile-bio mt-3" {% if site.data.profile.short_bio_text_justify %}style="text-align: justify;"{% endif %}>
                             {{ site.data.profile.short_bio }}
                         </div>
-                        {% if site.data.profile.cv_link %}
+                        <!-- {% if site.data.profile.cv_link %}
                             <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}"><i class="fas fa-file-alt"></i> Curriculum Vitae</a> <br/>
-                        {% endif %}
+                        {% endif %} -->
+                        {% if site.data.profile.cv_links %}
+                            {% for cv_link in site.data.profile.cv_links %}
+                                <a href="{{ cv_link.url }}" target="_blank">
+                                <i class="fas fa-file-alt"></i> {{ cv_link.text }}
+                                </a>
+                                {% unless forloop.last %} | {% endunless %}
+                            {% endfor %}
+                            {% endif %}
                     </div>
         
                 </div>
