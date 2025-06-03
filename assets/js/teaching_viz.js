@@ -584,7 +584,7 @@ function processText(text) {
     "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", 
     "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", 
     "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're", "they've", "this", 
-    "those", "through", "to", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", 
+    "those", "through", "to", "dull", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", 
     "we've", "were", "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who", 
     "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd", "you'll", "you're", 
     "you've", "your", "yours", "yourself", "yourselves",
