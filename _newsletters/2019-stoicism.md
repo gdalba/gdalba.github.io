@@ -2,7 +2,7 @@
 title: "'While you're alive, keep learning how to live': An Introduction to Stoicism"
 date: 2019-03-25 00:01:00 +0800
 featured: true
-category: philosohpy
+category: philosophy
 excerpt: "Epictetus warns us that human conflicts, both internal and external, do not demand perfection in our actions (because perfection is not even possible)."
 thumbnail: "/assets/images/newsletters/newsletter2.jpeg"
 ---
