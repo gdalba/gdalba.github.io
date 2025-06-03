@@ -2,8 +2,8 @@
 title: "How can I convince you that Global Warming is Happening?"
 date: 2019-04-19 00:01:00 +0800
 featured: true
-category: philosophy
-excerpt: "Epictetus warns us that human conflicts, both internal and external, do not demand perfection in our actions (because perfection is not even possible)."
+category: Critical Thinking
+excerpt: "[...] some collective actions, far from being abstract, operate in the “here and now,” and this line of reasoning may offer some answers to the problem we are addressing here."
 thumbnail: "/assets/images/newsletters/pedestrians-umbrellas-beijing-china-heat-1519409354.jpg"
 ---
 
