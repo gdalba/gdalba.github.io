@@ -172,49 +172,214 @@ function updateYearFilters(role) {
   
   // Clear existing filters
   yearFilters.innerHTML = '';
+  yearFilters.style.display = 'flex';
+  yearFilters.style.flexWrap = 'wrap'; 
+  yearFilters.style.alignItems = 'flex-end';
+  yearFilters.style.justifyContent = 'flex-start';
+  yearFilters.style.width = 'auto'; // Don't take full width
+
   
-  // Get unique years from evaluations
-  const years = [...new Set(course.evaluations.map(e => e.year))].sort((a, b) => b - a);
   
-  if (years.length === 0) {
-    yearFilters.innerHTML = '<div class="alert alert-warning">No evaluation data available for this course.</div>';
-    return;
-  }
   
-  // Create year buttons
-  years.forEach((year, i) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn btn-sm btn-outline-secondary m-1';
-    btn.textContent = year;
-    
-    btn.addEventListener('click', function() {
-      // Update state
-      state[role].selectedYear = year;
-      
-      // Update active state of buttons
-      yearFilters.querySelectorAll('button').forEach(btn => {
-        btn.className = 'btn btn-sm btn-outline-secondary m-1';
-      });
-      this.className = 'btn btn-sm btn-primary m-1';
-      
-      // Update visualizations
-      updateVisualizations(role);
-    });
-    
-    yearFilters.appendChild(btn);
+  // Get unique years first (without terms)
+  const uniqueYears = [...new Set(course.evaluations.map(e => e.year))];
+  
+  // Sort years in descending order
+  uniqueYears.sort((a, b) => b - a);
+  
+  // Group evaluations by year
+  const evaluationsByYear = {};
+  uniqueYears.forEach(year => {
+    evaluationsByYear[year] = course.evaluations.filter(e => e.year === year);
   });
   
-  // Select first year by default
-  if (years.length > 0) {
-    const firstBtn = yearFilters.querySelector('button');
-    if (firstBtn) {
-      firstBtn.click();
+  // Create a filter group for each year
+  uniqueYears.forEach(year => {
+    // Create a year header if there are multiple terms
+    if (evaluationsByYear[year].length > 1) {
+      // Create a card to visually group all buttons for this year
+      const yearGroup = document.createElement('div');
+      yearGroup.className = 'card d-inline-block me-2';
+      yearGroup.style.verticalAlign = 'bottom';
+      yearGroup.style.margin = '0'; 
+      yearGroup.style.borderLeft = '4px solid #6c757d';
+      yearGroup.style.position = 'relative';
+      yearGroup.style.top = '6px'
+
+      
+      
+      // Create card header with year info
+      const yearHeader = document.createElement('div');
+      yearHeader.className = 'card-header bg-light py-1';
+      yearHeader.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0">${year} Academic Year</h6>
+          <span class="badge badge-secondary">${evaluationsByYear[year].length} terms</span>
+        </div>
+      `;
+      yearGroup.appendChild(yearHeader);
+      
+      // Create card body to contain all buttons for this year
+      const cardBody = document.createElement('div');
+      cardBody.className = 'card-body p-1';
+      yearGroup.appendChild(cardBody);
+      
+      // Add the entire card to the filters
+      yearFilters.appendChild(yearGroup);
+      
+      // Add "All Terms" button inside the card body
+      const allTermsBtn = document.createElement('button');
+      allTermsBtn.type = 'button';
+      allTermsBtn.className = 'btn btn-sm btn-outline-primary m-1';
+      allTermsBtn.style.height='38px';
+      allTermsBtn.style.alignItems ='center';
+      allTermsBtn.style.justifyContent = 'center';
+      allTermsBtn.style.display = 'inline-flex';
+      allTermsBtn.textContent = `${year} (All Terms)`;
+      allTermsBtn.dataset.year = year;
+      allTermsBtn.dataset.allTerms = 'true';
+      
+      allTermsBtn.addEventListener('click', function() {
+        // Update state to show all terms for this year
+        state[role].selectedYear = parseInt(this.dataset.year);
+        state[role].selectedTerm = 'all';
+        
+        // Update active state of buttons
+        yearFilters.querySelectorAll('button').forEach(btn => {
+          btn.className = btn === this ? 'btn btn-sm btn-primary m-1' : 'btn btn-sm btn-outline-secondary m-1';
+          if (btn !== this && btn.dataset.allTerms === 'true') {
+            btn.className = 'btn btn-sm btn-outline-primary m-1';
+          }
+        });
+        
+        // Update visualizations with all terms for this year
+        updateVisualizationsMultiTerm(role);
+      });
+      
+      cardBody.appendChild(allTermsBtn);
+      
+      // Create buttons for each term in this year inside the card body
+      const termsForYear = evaluationsByYear[year];
+      termsForYear.sort((a, b) => (a.term || '').localeCompare(b.term || ''));
+      
+      termsForYear.forEach(evaluation => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-sm btn-outline-secondary m-1';
+        btn.style.height='38px';
+        btn.style.alignItems ='center';
+        btn.style.justifyContent = 'center';
+        btn.style.display = 'inline-flex';
+        btn.style.width = 'auto'; // Let content determine width
+        btn.style.minWidth = 'fit-content';
+        btn.style.flexGrow = '0'; // Prevent stretching, except it doesn't work and I'm stuck
+        btn.textContent = evaluation.term ? `${evaluation.term}` : `${year}`;
+        btn.dataset.year = year;
+        btn.dataset.term = evaluation.term || '';
+        
+        btn.addEventListener('click', function() {
+          // Update state with both year and term
+          state[role].selectedYear = parseInt(this.dataset.year);
+          state[role].selectedTerm = this.dataset.term;
+          
+          // Update active state of buttons
+          yearFilters.querySelectorAll('button').forEach(btn => {
+            btn.className = btn === this ? 'btn btn-sm btn-primary m-1' : 'btn btn-sm btn-outline-secondary m-1';
+            if (btn !== this && btn.dataset.allTerms === 'true') {
+              btn.className = 'btn btn-sm btn-outline-primary m-1';
+            }
+          });
+          
+          // Update visualizations for single term
+          updateVisualizationsSingleTerm(role);
+        });
+        
+        cardBody.appendChild(btn);
+      });
+    } else {
+      // For years with only one term, create a simple button
+      const evaluation = evaluationsByYear[year][0];
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-sm btn-outline-secondary m-1';
+      btn.style.height='38px';
+      btn.style.alignItems ='center';
+      btn.style.justifyContent = 'center';
+      btn.style.display = 'inline-flex';
+      btn.textContent = evaluation.term ? `${year} ${evaluation.term}` : `${year}`;
+      btn.dataset.year = year;
+      btn.dataset.term = evaluation.term || '';
+      
+      btn.addEventListener('click', function() {
+        // Update state with both year and term
+        state[role].selectedYear = parseInt(this.dataset.year);
+        state[role].selectedTerm = this.dataset.term;
+        
+        // Update active state of buttons
+        yearFilters.querySelectorAll('button').forEach(btn => {
+          btn.className = btn === this ? 'btn btn-sm btn-primary m-1' : 'btn btn-sm btn-outline-secondary m-1';
+        });
+        
+        // Update visualizations for single term
+        updateVisualizationsSingleTerm(role);
+      });
+      
+      yearFilters.appendChild(btn);
     }
+  });
+  
+  // Select first year-term by default
+  if (yearFilters.querySelector('button')) {
+    yearFilters.querySelector('button').click();
   }
 }
 
-function updateVisualizations(role) {
+// Update visualization for a single term
+function updateVisualizationsSingleTerm(role) {
+  const course = state[role].selectedCourse;
+  const year = state[role].selectedYear;
+  const term = state[role].selectedTerm;
+  
+  if (!course || !year) {
+    console.error(`Missing course or year for ${role}`, { course, year });
+    return;
+  }
+  
+  console.log(`Updating visualizations for ${role}, course ${course.id}, year ${year}, term ${term}`);
+  
+  // Find evaluation for the selected year and term
+  const evaluation = course.evaluations.find(e => e.year === year && (e.term || '') === term);
+  
+  if (!evaluation) {
+    console.error(`No evaluation found for ${course.id}, year ${year}, term ${term}`);
+    return;
+  }
+
+  if (!evaluation.n && evaluation.metrics) {
+    // Find the first metric with an n value, or calculate from counts
+    const firstMetric = Object.values(evaluation.metrics)[0];
+    if (firstMetric) {
+      if (firstMetric.n) {
+        evaluation.n = firstMetric.n;
+      } else {
+        // Calculate n from the sum of SD, D, N, A, SA
+        evaluation.n = (firstMetric.SD || 0) + 
+                       (firstMetric.D || 0) + 
+                       (firstMetric.N || 0) + 
+                       (firstMetric.A || 0) + 
+                       (firstMetric.SA || 0);
+      }
+    }
+  }  
+  
+  // Update chart and comments
+  renderChart(role, course, evaluation);
+  renderComments(role, course, evaluation);
+  renderWordCloud(role, course, evaluation);
+}
+
+// Update visualization for all terms in a year
+function updateVisualizationsMultiTerm(role) {
   const course = state[role].selectedCourse;
   const year = state[role].selectedYear;
   
@@ -223,19 +388,97 @@ function updateVisualizations(role) {
     return;
   }
   
-  console.log(`Updating visualizations for ${role}, course ${course.id}, year ${year}`);
+  console.log(`Updating visualizations for ${role}, course ${course.id}, all terms in year ${year}`);
   
-  // Find evaluation for the selected year
-  const evaluation = course.evaluations.find(e => e.year === year);
+  // Find all evaluations for the selected year
+  const evaluations = course.evaluations.filter(e => e.year === year); 
   
-  if (!evaluation) {
-    console.error(`No evaluation found for ${course.id}, year ${year}`);
+  if (!evaluations || evaluations.length === 0) {
+    console.error(`No evaluations found for ${course.id}, year ${year}`);
     return;
   }
   
-  // Update chart and comments
-  renderChart(role, course, evaluation);
-  renderComments(role, course, evaluation);
+  // Merge evaluations data
+  const mergedEvaluation = {
+    year: year,
+    term: 'All Terms',
+    metrics: {},
+    comments: []
+  };
+  
+  // Merge metrics
+  evaluations.forEach(evaluation => {
+    if (evaluation.metrics) {
+      Object.entries(evaluation.metrics).forEach(([key, metric]) => {
+        if (!mergedEvaluation.metrics[key]) {
+          mergedEvaluation.metrics[key] = {
+            question: metric.question,
+            SD: 0, D: 0, N: 0, A: 0, SA: 0,
+            n: 0
+          };
+        }
+        
+        // Sum up the counts
+        mergedEvaluation.metrics[key].SD += metric.SD || 0;
+        mergedEvaluation.metrics[key].D += metric.D || 0;
+        mergedEvaluation.metrics[key].N += metric.N || 0;
+        mergedEvaluation.metrics[key].A += metric.A || 0;
+        mergedEvaluation.metrics[key].SA += metric.SA || 0;
+        mergedEvaluation.metrics[key].n += metric.n || 0;
+      });
+    }
+    
+    // Merge comments
+    if (evaluation.comments && Array.isArray(evaluation.comments)) {
+      evaluation.comments.forEach(comment => {
+        if (comment && comment.trim()) {
+          mergedEvaluation.comments.push(`[${evaluation.term || ''}] ${comment}`);
+        }
+      });
+    }
+  });
+  
+  // Calculate total responses from any metric
+  mergedEvaluation.n = evaluations.reduce((total, evaluation) => {
+  // If evaluation has a direct n property, use that
+  if (evaluation.n) {
+    return total + evaluation.n;
+  }
+  
+  // Otherwise, try to get n from the first metric
+  if (evaluation.metrics && Object.keys(evaluation.metrics).length > 0) 
+  {
+    const firstMetric = Object.values(evaluation.metrics)[0];
+    if (firstMetric.n) {
+      return total + firstMetric.n;
+    }
+    
+    // If no n in metric, sum up the values
+    const metricSum = (firstMetric.SD || 0) + 
+                     (firstMetric.D || 0) + 
+                     (firstMetric.N || 0) + 
+                     (firstMetric.A || 0) + 
+                     (firstMetric.SA || 0);
+    return total + metricSum;
+  }
+  
+  return total;
+}, 0);
+  
+  // Update chart and comments with merged data
+  renderChart(role, course, mergedEvaluation);
+  renderComments(role, course, mergedEvaluation);
+  renderWordCloud(role, course, mergedEvaluation);
+}
+
+function updateVisualizations(role) {
+  const term = state[role].selectedTerm;
+  
+  if (term === 'all') {
+    updateVisualizationsMultiTerm(role);
+  } else {
+    updateVisualizationsSingleTerm(role);
+  }
 }
 
 function renderChart(role, course, evaluation) {
@@ -582,9 +825,9 @@ function processText(text) {
     "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is", "isn't", "it", "it's", "its", "itself", "let's", 
     "me", "more", "most", "mustn't", "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", 
     "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", 
-    "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", 
+    "she's", "should", "shouldn't", "every", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", 
     "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're", "they've", "this", 
-    "those", "through", "to", "dull", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", 
+    "those", "through", "boring", "to", "dull", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", 
     "we've", "were", "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who", 
     "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd", "you'll", "you're", 
     "you've", "your", "yours", "yourself", "yourselves",
@@ -644,7 +887,7 @@ function updateVisualizations(role) {
   // Update chart and comments
   renderChart(role, course, evaluation);
   renderComments(role, course, evaluation);
-  renderWordCloud(role, course, evaluation);  // Add this line
+  renderWordCloud(role, course, evaluation);
 }
 
 // Also update resetSection to reset the word cloud
