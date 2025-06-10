@@ -18,6 +18,8 @@ body_attr: >-
             <li class="nav-item">
                 <a class="nav-link" id="critical-thinking-tab" data-toggle="tab" href="#critical-thinking" role="tab" aria-controls="critical-thinking" aria-selected="false">Critical Thinking</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="philosophy-tab" data-toggle="tab" href="#philosophy" role="tab" aria-controls="tab" aria-selected="false">Philosophy</a>
         </ul>
     </div>
 </div>
@@ -136,12 +138,52 @@ body_attr: >-
                     {% endfor %}
                 </div>
                 {% endfor %}
-            </div>
+            </div>        
 
             <div class="col-2 d-none d-lg-block">
                 <div id="navbar-ct-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
                     {% for year in ct_news_by_year %}
                     <a class="nav-link d-block" href="#ct-year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="philosophy" role="tabpanel" aria-labelledby="philosophy-tab">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                {% assign philosophy_news = site.newsletters | where: "category", "philosophy" | sort: "date" | reverse %}
+                {% assign philosophy_news_by_year = philosophy_news | group_by_exp: "item", "item.date | date: '%Y'" %}
+                {% for year in philosophy_news_by_year %}
+                <h2 class="pt-4" id="philosophy-year-{{ year.name }}">{{ year.name }}</h2>
+                <div class="my-0 p-0 bg-white shadow-sm rounded-sm">
+                    {% for item in year.items %}
+                    <div class="row no-gutters {% unless forloop.last %}border-bottom{% endunless %} border-gray">
+                        <div class="col-md-2 mb-md-0 p-md-3">
+                            {% if item.thumbnail %}
+                            <img src="{{ item.thumbnail | relative_url }}" alt="{{ item.title }}" class="w-100 rounded-sm">
+                            {% else %}
+                            <div class="bg-light rounded-sm" style="height: 100px;"></div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-10 p-3 pl-md-0">
+                            <h5 class="mt-0 mb-1 font-weight-normal">{{ item.title }}</h5>
+                            <p class="mt-0 mb-0 small text-muted">{{ item.date | date: "%B %d, %Y" }}</p>
+                            <p class="mt-0 mb-2 small text-muted">{{ item.excerpt }}</p>
+                            <p class="small pb-0 mb-0 lh-125">
+                                <a href="{{ item.url | relative_url }}">Read More</a>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-2 d-none d-lg-block">
+                <div id="navbar-philosophy-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
+                    {% for year in philosophy_news_by_year %}
+                    <a class="nav-link d-block" href="#philosophy-year-{{ year.name }}">{{ year.name }}</a>
                     {% endfor %}
                 </div>
             </div>
