@@ -4,8 +4,9 @@ navbar_name: "Gabriel Dall'Alba"
 
 positions:
 - logo: /assets/images/badges/ubc-logo.png  # Logo is optional
-  name: Sessional Lecturer
-- name: Bioinformatics Scientist
+  name: SCIE 113 Instructor
+- logo: /assets/images/badges/ubc-logo.png
+  name: Education Researcher
 
 
 email: "gabriel.dallalba@botany.ubc.ca"
@@ -33,7 +34,7 @@ short_bio: >-
   <p>
     A few professional passions can describe me:
   <p>
-  👨‍🏫<strong style="color:#440154;">Teaching</strong>, where I have been a sessional lecturer for two courses at UBC: <a href="https://biologyprogram-2023.sites.olt.ubc.ca/files/2023/02/Syllabus_BIOL180_2023.pdf" target="_blank">Thinking Like a Life Scientist (BIOL 180)</a> and <a href="https://science.ubc.ca/students/SCIE113" target="_blank">First-year Seminar in Science (SCIE 113)</a>; I acted as a Teaching Assistant (TA) and TA coordinator for numerous courses across UBC's Biology Program, Biomedical Engineering (BMEG), and Physics & Astronomy (PHYS) departments.
+  👨‍🏫<strong style="color:#440154;">Teaching</strong>, where I have been a sessional lecturer for two courses at UBC: <a href="https://science.ubc.ca/students/SCIE113" target="_blank">First-year Seminar in Science (SCIE 113)</a> and <a href="https://biologyprogram-2023.sites.olt.ubc.ca/files/2023/02/Syllabus_BIOL180_2023.pdf" target="_blank">Thinking Like a Life Scientist (BIOL 180)</a>; I delivered guest lectures to <a href="https://biologyprogram-2023.sites.olt.ubc.ca/files/2022/09/Syllabus_BIOL336_2022.pdf" targed="_blank">Fundamentals of Evolutionary Biology (BIOL 336); I acted as a Teaching Assistant (TA) and TA coordinator for numerous courses across UBC's Biology Program, Biomedical Engineering (SBME), and Physics & Astronomy (PHYS) departments.
   <p>
   🔬<strong style="color:#472d7b;">Research</strong>, where I have been involved in various research projects, more recently with the genome annotation of a high-quality assembly of the ctenophore Mnemiopsis leidyi at the <a href="https://plotkinlab.phas.ubc.ca/" target=_blank">Plotkin lab</a>;
   <p>
@@ -41,7 +42,7 @@ short_bio: >-
   <p>
   🌍<strong style="color:#2c728e;">Outreach</strong>, where I have been involved in various outreach activities to promote science education, including my science communication blog, <a href="https://nastrilhasdarazao.wordpress.com/" target=_blank">"On the Trails of Reason"</a> (language: Portuguese-Brazil).      
   <p>  
-  🧬<Strong style="color:#21918c;">Interests (Bioinformatics / General Biology) </strong>: Evolutionary Biology, Genomics, Efficient Processing of Big Data, and Genomic Data Visualization.
+  🧬<Strong style="color:#21918c;">Interests (Bioinformatics / General Biology) </strong>: Evolutionary Biology, Genetics, Genomics, Data Science & Big Data for Biology.
   <p>
   🧠<Strong style="color:#28ae80;">Interests (Philosophy of Science & Education) </strong>: Critical Thinking for Science and Education, Fostering of Epistemic Virtues, Nature of Science, and Science Communication Strategies.
   </p>
