@@ -46,6 +46,8 @@ With Lizelle's collaboration and insights, I led the data collection. I took ins
 - Uses Natural Language Processing (NLP) for automatic processing of students' answers. If you are interested in ChatGPT and other Large Language Models (LLMs), then know that NLP is the foundational domain of knowledge of such technologies. In particular, I used a good-for-clustering model called [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) to transform data into input for [K-means clustering](https://www.geeksforgeeks.org/machine-learning/k-means-clustering-introduction/).
 - Draws inspiration from Marlene Zuk and colleagues in [this paper about sexual signal loss on crickets](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/1365-2656.12806) to plot a comparison of pre- and post-activity confidence scores against a 1:1 baseline (i.e., no change in confidence).
 
+We presented our preliminary data analysis at the fantastic UBC Biology Teaching & Learning Retreat 2025 hosted by [Dr. Christine Goedhart](https://www.linkedin.com/in/christine-goedhart-38199167), [Dr. Gwen Huber](https://www.linkedin.com/in/gwen-huber-5616ba54/), and supported by [Dr. Pamela Kalas](https://zoology.ubc.ca/person/pamela-kalas).
+
 GitHub of the project: TBA
 
 
