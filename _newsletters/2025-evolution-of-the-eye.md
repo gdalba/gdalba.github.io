@@ -91,7 +91,7 @@ That’s because evolution isn’t a quest for optimization. It’s the preserva
 
 ### Nautilus pinhole
 
-The most logical concept of an eye in animals is then a small pit (we can call this "camera-like" eyes, too), and in this pit you place whatever photoreceptor and pigment you can squeeze in to some efficiency and form the retina (or the layer of photoreceptors and pigments). Light will hit the retina, and the animal will process light, but no image. Good enough for groups such as flatworms, bacteria, algae, sponge larvae, slugs and snails, and some bivalves.
+The most logical concept of an eye in animals is then a small pit (we can call this "camera-like" eyes, too), and in this pit you place whatever photoreceptor and pigment you can squeeze in to some efficiency and form the retina (or the layer of photoreceptors and pigments). Light will hit the retina, and the animal will process light, but no image. Good enough for groups such as flatworms, green algae, sponge larvae, slugs and snails, and some bivalves.
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
     <figure style="width: 100%;">
