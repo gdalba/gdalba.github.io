@@ -10,7 +10,7 @@ thumbnail: "/assets/images/newsletters/pedestrians-umbrellas-beijing-china-heat-
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
     <figure style="width: 78%;">
         <img src="\assets\images\newsletters\pedestrians-umbrellas-beijing-china-heat-1519409354.jpg" style="width: 100%;">
-                    <figcaption>Temperatures in Beijing rose above 104 degrees Fahrenheit on July 6, 2023. Credit: Jia Tianyong/China News Service/VCG via Getty Images (Taken from <a href="NRDChttps://www.nrdc.org/stories/global-warming-101">NRDC</a>).</figcaption>        
+                    <figcaption>Temperatures in Beijing rose above 104 degrees Fahrenheit on July 6, 2023. Credit: Jia Tianyong/China News Service/VCG via Getty Images (Taken from <a href="https://www.nrdc.org/stories/global-warming-101">NRDC</a>).</figcaption>        
     </figure>
 </div>
 

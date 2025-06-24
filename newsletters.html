@@ -13,7 +13,7 @@ body_attr: >-
                 <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All Newsletters</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="bioinformatics-tab" data-toggle="tab" href="#bioinformatics" role="tab" aria-controls="bioinformatics" aria-selected="false">Bioinformatics</a>
+                <a class="nav-link" id="biology-tab" data-toggle="tab" href="#biology" role="tab" aria-controls="biology" aria-selected="false">Biology</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="critical-thinking-tab" data-toggle="tab" href="#critical-thinking" role="tab" aria-controls="critical-thinking" aria-selected="false">Critical Thinking</a>
@@ -66,11 +66,11 @@ body_attr: >-
         </div>
     </div>
     
-    <!-- Bioinformatics Tab -->
-    <div class="tab-pane fade" id="bioinformatics" role="tabpanel" aria-labelledby="bioinformatics-tab">
+    <!-- Biology Tab -->
+    <div class="tab-pane fade" id="biology" role="tabpanel" aria-labelledby="biology-tab">
         <div class="row">
             <div class="col-12 col-lg-10">
-                {% assign bio_news = site.newsletters | where: "category", "bioinformatics" | sort: "date" | reverse %}
+                {% assign bio_news = site.newsletters | where: "category", "biology" | sort: "date" | reverse %}
                 {% assign bio_news_by_year = bio_news | group_by_exp: "item", "item.date | date: '%Y'" %}
                 {% for year in bio_news_by_year %}
                 <h2 class="pt-4" id="bio-year-{{ year.name }}">{{ year.name }}</h2>
