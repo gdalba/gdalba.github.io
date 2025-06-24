@@ -215,3 +215,13 @@ But we did learn one thing: to build an eye, you first must have a planet at the
 #### Notes:
 
 ¡ If you want to read more on the origins of photosynthesis, take a look at [this paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC2949000/).
+
+Other references:
+
+[Jonasova & Kozmik (2008). Eye evolution: Lens and cornea as an upgrade of animal visual system.](https://www.sciencedirect.com/science/article/abs/pii/S1084952107001632) 
+[Lamb (2011). Evolution of the Eye.](https://www.scientificamerican.com/article/evolution-of-the-eye/)
+[Berzins <em>et</em> al. (2021). Cnidaria.](https://onlinelibrary.wiley.com/doi/epdf/10.1002/9781119507697.ch3)
+[Sandmann (2021). Diversity and origin of carotenoid biosynthesis: its history of coevolution towards plant photosynthesis.](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.17655)
+[Serb & Eernisse (2008). Charting Evolution’s Trajectory: Using Molluscan Eye Diversity to Understand Parallel and Convergent Evolution](https://evolution-outreach.biomedcentral.com/articles/10.1007/s12052-008-0084-1)
+[Land & Fernald (1992).The Evolution of Eyes.](https://www.annualreviews.org/content/journals/10.1146/annurev.ne.15.030192.000245)
+[Nature (2012). Vision with no nervous system.](https://www.nature.com/articles/484145d)
