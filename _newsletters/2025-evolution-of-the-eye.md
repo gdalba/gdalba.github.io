@@ -70,7 +70,7 @@ Once cells capable of processing light began to cluster spatially — that is, l
 
 To illustrate how different organisms have run with this innovation, let’s examine three animals and the types of eyes they’ve developed. Then, we’ll explore what cnidarians — some of the earliest diverging animals — have devised to sense and interpret the world around them.
 
-### Swimming Sponges have eyes for swimming
+### Sponges have eyes for swimming
 
 Sponges, as a group, lack many of the diagnostic features seen in upper Phyla. They have no mouth, no digestive tract, **no eyes**. These are animals that lack true tissues and organs. Instead, these are usually porous constructions composed of several distinct cell types (excluding sex-related cells), some of them being: the pinacocytes, resembling some sort of flat plate-like that covers sponge's outer surface; the choanocytes, flagellated cells resembling the living extant choanoflagellates. These drive most of the water movement within the porous cavity of their bodies; and the amoeba-like cells lophocytes and amoebocytes, that the name already suggests to be amoeba-like. The function of these cells is mainly transporting nutrients and secreting the collagen that sustain their mesohyl (between pinacocyte and choanocyte layers).
 
