@@ -14,9 +14,7 @@ thumbnail: "/assets/images/newsletters/jellyfish.png"
     </figure>
 </div>
 
-## The ultimate recipe for building an eye
-
-### Ingredients
+### Ingredients:
 
 1 functioning universe (ours will do)
 
