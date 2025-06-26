@@ -7,6 +7,86 @@ excerpt: "Truth is, eyes are a fascinating example of evolution in action."
 thumbnail: "/assets/images/newsletters/jellyfish.png"
 ---
 
+## The ultimate recipe for building an eye
+
+### Ingredients
+
+1 functioning universe (ours will do)
+
+1 medium-sized star (such as the Sun)
+
+1 rocky planet with a stable orbit in the habitable zone
+
+Liquid water (your source of two of the CHNOPS), abundant and persistent
+
+CHNOPS elements (Carbon, Hydrogen, Nitrogen, Oxygen, Phosphorus, Sulfur)
+
+Natural laws (physics, chemistry, and, super importantly, evolution by natural selection)
+
+Radiation (UV, cosmic, solar. Not too much, not too little)
+
+Billions of years of uninterrupted time
+
+### How to cook:
+
+##### 1. Prepare the Universe.
+
+First of all, we need a universe that hosts stars and celestial bodies such as planets. The one we have right now will suffice.
+
+Let stars forge heavy elements in their cores. Allow for stellar deaths (especially supernovae) to scatter these elements into the cosmos. This cosmic debris will later accrete into rocky planets.
+
+##### 2. Select a planet in the habitable zone.
+
+We need one planet to orbit a star at the right distance, during the right phase of the star’s life. Earth and the Sun make a good pair.
+
+This planet must host persistent bodies of liquid water, ideally stabilized by a thick atmosphere and magnetic field to protect early organic chemistry from excessive radiation.
+
+##### 3. Add foundational chemistry.
+
+Ensure the presence of the essential elements for life: C, H, N, O, P, and S. These elements support the formation of amino acids, nucleotides, and lipid membranes. Water provides a solvent for reactions and participates in many of them.
+
+##### 4. Set up biological laws.
+
+Implement evolution by natural selection as a governing principle. Introduce the possibility of heritable variation. For instance, through replication errors (mutations), recombination, and others.
+
+##### 5. Apply radiation, entropy, and time.
+
+Expose surface or near-surface molecules to selective doses of UV light, geothermal gradients, and chemical disequilibria. Let the chemistry run until you get self-assembly, self-replication, and metabolism.
+
+A sign that it’s working: lipid bilayers enclosing RNA or DNA-like molecules. You now have the precursors to biological life.
+
+##### 6. Let cells emerge and diversify.
+
+Over hundreds of millions of years, allow cells to evolve increasing diversity and complexity: DNA genomes, protein enzymes, ribosomes, membranes, and (optionally) nuclei.
+
+Early photosynthetic organisms will evolve pigment-protein complexes (like bacteriorhodopsin or chlorophyll) to harvest photons. Some pigments, especially retinal-based ones, can isomerize in response to light. This will set up photoreception.
+
+##### 7. Encourage evolution of sensory photoreception.
+
+Some cells will eventually evolve opsins, light-sensitive proteins bound to retinal. These opsins activate signal transduction pathways in response to photons. With selection favoring light-detecting behavior (e.g., moving toward or away from light), these systems evolve into dedicated photoreceptor cells.
+
+##### 8. Promote multicellularity and division of labor.
+
+As multicellular organisms evolve, some cells specialize for sensing light. Simple animals like flatworms and cnidarians develop eyespots: clusters of photoreceptive cells often backed by pigment to block light from certain directions. This creates directional sensitivity.
+
+##### 9. Shape the geometry.
+
+Natural selection now works on spatial arrangement. A depression in the eyespot enhances directionality. Deepen the depression, and you get a pinhole eye capable of forming rough images. This geometry emerges independently in several animal lineages.
+
+##### 10. Add optical components.
+
+Once a pinhole exists, a transparent covering can emerge to protect it. Slight thickening of this covering, followed by fine-tuning its curvature and refractive index, produces a lens. The lens improves brightness and focus.
+
+##### 11. Refine neural circuitry.
+
+What good does a complex light-sensing mechanism without processing power? Photoreceptors connect to nerve cells, and eventually to centralized processing units (ganglia, brains). These pathways extract features like contrast, motion, and orientation.
+
+##### And <em>voilá</em>, <em>habemus</em> eyes.
+
+You now have a functioning camera-like eye. This recipe has been independently cooked multiple times. Camera eyes evolved separately in vertebrates and cephalopods; compound eyes in arthropods. Evolution, it seems, finds similar solutions under similar conditions.
+
+Now, let's dive a bit into the nitty-gritty of the above steps, shall we?
+
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
     <figure style="width: 78%;">
         <img src="\assets\images\newsletters\jellyfish.png" style="width: 100%;">
@@ -14,7 +94,7 @@ thumbnail: "/assets/images/newsletters/jellyfish.png"
     </figure>
 </div>
 
-Not many of us think of jellyfishes and suddenly think of eyes. Personally, to start thinking of eyes is akin to thinking of the evolution of eyes. I cannot do it otherwise, it must be understood through macroevolutionary lenses (pun intended). Of course, this small text is not supposed to cover **the** evolution of eyes, though you are welcome to explore a bit of it in good papers like [Schwab's Keeler lecture of 2017](https://www.nature.com/articles/eye2017226). Truth is, eyes are a fascinating example of evolution in action. Take a quick look at the eyes below:
+I mentioned cnidarians in the repice, which might strike as odd to some of you. Not many of us think of jellyfishes and suddenly think of eyes. Personally, to start thinking of eyes is akin to thinking of the evolution of eyes. I cannot do it otherwise, it must be understood through macroevolutionary lenses (pun intended). Of course, this small text is not supposed to cover **the** evolution of eyes, though you are welcome to explore a bit of it in good papers like [Schwab's Keeler lecture of 2017](https://www.nature.com/articles/eye2017226). Truth is, eyes are a fascinating example of evolution in action. Take a quick look at the eyes below:
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
     <figure style="width: 78%;">
@@ -45,7 +125,7 @@ It may seem like a digression, but it's not. What does sunlight and photosynthes
 
 The most well-known pigment involved in this selective energy capture is chlorophyll, which absorbs primarily in the blue and red regions of the visible spectrum, leaving out much of the green (and then organisms with chlorophyll appear green to us). As photosynthetic systems evolved, nature found ways by which efficiency is improved. Among these were accessory pigments like the carotenoids — long chains of conjugated double bonds that give them their distinctive orange color. These molecules expanded the usable range of sunlight by absorbing in the blue-violet region, where chlorophyll is less effective, and safely transferring that energy into the photosynthetic machinery.
 
-So without photosynthesis, [there would be no evolutionary pressures driving and sustaining the production of carotenoids such as β-carotene.](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.17655). No β-carotene, no retinol (you may know this as vitamin A). No retinol, no opsins. No opsins, no fundamental units of the most basic structure of an eye. This is finally where the eye gets back to the spotlight of the article.
+So without photosynthesis, [there would be no evolutionary pressures driving and sustaining the production of carotenoids such as β-carotene.](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.17655). No β-carotene, no retinal. No retinal, no opsins. No opsins, no fundamental units of the most basic structure of an eye. This is finally where the eye gets back to the spotlight of the article.
 
 ## The first "eye" is no eye at all, but sets the tone of evolution
 
@@ -218,10 +298,10 @@ But we did learn one thing: to build an eye, you first must have a planet at the
 
 Other references:
 
-[Jonasova & Kozmik (2008). Eye evolution: Lens and cornea as an upgrade of animal visual system.](https://www.sciencedirect.com/science/article/abs/pii/S1084952107001632) 
-[Lamb (2011). Evolution of the Eye.](https://www.scientificamerican.com/article/evolution-of-the-eye/)
-[Berzins <em>et</em> al. (2021). Cnidaria.](https://onlinelibrary.wiley.com/doi/epdf/10.1002/9781119507697.ch3)
-[Sandmann (2021). Diversity and origin of carotenoid biosynthesis: its history of coevolution towards plant photosynthesis.](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.17655)
-[Serb & Eernisse (2008). Charting Evolution’s Trajectory: Using Molluscan Eye Diversity to Understand Parallel and Convergent Evolution](https://evolution-outreach.biomedcentral.com/articles/10.1007/s12052-008-0084-1)
-[Land & Fernald (1992).The Evolution of Eyes.](https://www.annualreviews.org/content/journals/10.1146/annurev.ne.15.030192.000245)
+[Jonasova & Kozmik (2008). Eye evolution: Lens and cornea as an upgrade of animal visual system.](https://www.sciencedirect.com/science/article/abs/pii/S1084952107001632)<br> 
+[Lamb (2011). Evolution of the Eye.](https://www.scientificamerican.com/article/evolution-of-the-eye/)<br>
+[Berzins <em>et</em> al. (2021). Cnidaria.](https://onlinelibrary.wiley.com/doi/epdf/10.1002/9781119507697.ch3)<br>
+[Sandmann (2021). Diversity and origin of carotenoid biosynthesis: its history of coevolution towards plant photosynthesis.](https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.17655)<br>
+[Serb & Eernisse (2008). Charting Evolution’s Trajectory: Using Molluscan Eye Diversity to Understand Parallel and Convergent Evolution](https://evolution-outreach.biomedcentral.com/articles/10.1007/s12052-008-0084-1)<br>
+[Land & Fernald (1992).The Evolution of Eyes.](https://www.annualreviews.org/content/journals/10.1146/annurev.ne.15.030192.000245)<br>
 [Nature (2012). Vision with no nervous system.](https://www.nature.com/articles/484145d)
