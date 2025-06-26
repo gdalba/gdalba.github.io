@@ -7,6 +7,13 @@ excerpt: "Truth is, eyes are a fascinating example of evolution in action."
 thumbnail: "/assets/images/newsletters/jellyfish.png"
 ---
 
+<div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <figure style="width: 100%; text-align: center;">
+        <img src="\assets\images\newsletters\eyes-rawpixel.png" style="width: 60%; object-fit: cover; object-position: bottom; height: 600px;">
+        <figcaption>Human iris. Taken from <a href="https://www.rawpixel.com/image/6755669/green-eye-iris-iridology-isolated-image">RawPixel under CreativeCommons license</a>).</figcaption>        
+    </figure>
+</div>
+
 ## The ultimate recipe for building an eye
 
 ### Ingredients
@@ -88,7 +95,7 @@ You now have a functioning camera-like eye. This recipe has been independently c
 Now, let's dive a bit into the nitty-gritty of the above steps, shall we?
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 78%;">
+    <figure style="width: 78%; text-align: center;">
         <img src="\assets\images\newsletters\jellyfish.png" style="width: 100%;">
                     <figcaption>Juvenile of described species <em>Tripedalia maipoensis</em>. Credit: Sun <em>et</em> al. (2023) (Taken from <a href="https://zoolstud.sinica.edu.tw/Journals/62/62-17.html">Zoological Species journal</a>).</figcaption>        
     </figure>
@@ -157,7 +164,7 @@ Sponges, as a group, lack many of the diagnostic features seen in upper Phyla. T
 They can reproduce asexually or sexually, where a free-swimming larvae is ultimately released in the body of water, and here's where things get interesting: these larvae do not lack eye-like structures. Instead, they again show some cluster of light-sensing cells that guide phototaxis during that stage of life. These eyes are made of chryptochromes, without opsins at all! This class of flavoproteins is sensitive to blue light. In this way, sponges challenge the expectation that opsins are necessary for light-guided behavior. Even without true eyes or nervous systems, they demonstrate how light perception can evolve independently, through molecular pathways distinct from those used in most animals.
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\sponge-eyes.jpg" style="width: 50%;">
                     <figcaption>The larvae eye of <em>Amphimedon queenslandica</em>. (Taken from <a href="https://www.nature.com/articles/484145d">Vision with no nervous system</a>).</figcaption>        
     </figure>
@@ -169,12 +176,19 @@ Adding to any biological system is costly, in both time and resources. The more 
 
 That’s because evolution isn’t a quest for optimization. It’s the preservation of what works on average through the forwarding of successful alleles to the next generation. The preservation, in other words, of whatever allows an organism to survive and reproduce within the genetic constraints and environmental pressures it faces. We’ll see how this plays out in the various kinds of eyes that follow.
 
-### Nautilus pinhole
+### The Nautilus pinhole
+
+<div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <figure style="width: 100%; text-align: center;">
+        <img src="\assets\images\newsletters\nautilus.png" style="width: 70%;">
+                    <figcaption>The beautiful nautilus and its pinhole eye.</figcaption>        
+    </figure>
+</div>
 
 The most logical concept of an eye in animals is then a small pit (we can call this "camera-like" eyes, too), and in this pit you place whatever photoreceptor and pigment you can squeeze in to some efficiency and form the retina (or the layer of photoreceptors and pigments). Light will hit the retina, and the animal will process light, but no image. Good enough for groups such as flatworms, green algae, sponge larvae, slugs and snails, and some bivalves.
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\light-in-pit.png" style="width: 25%;">
                     <figcaption>Digital illustration of a eye pit. (Taken from <a href="https://phas.ubc.ca/~oser/p438/">BIOL 438 classes at UBC, by Katherine Pachal</a>).</figcaption>        
     </figure>
@@ -183,7 +197,7 @@ The most logical concept of an eye in animals is then a small pit (we can call t
 This basic structure won't even be able to process the direction of the source of light, but will be good enough to spot the intensity. Now, what happens if we squeeze the entry of this pit and make it very narrow? 
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\light-in-pinhole.png" style="width: 25%;">
                     <figcaption>Digital illustration of a eye pinhole. (Taken from <a href="https://phas.ubc.ca/~oser/p438/">BIOL 438 classes at UBC, by Katherine Pachal</a>).</figcaption>        
     </figure>
@@ -194,7 +208,7 @@ Light now can be directionally processed. This is a huge step from the wide-open
 However, if you need depth perception, you're out of luck! If three objects are aligned in front of this eye, but at different distances, the eye won't process anything but a juxtaposition of all three objects. Nevertheless, we are slowly moving from a cluster of cells to a pit, then a pit with a narrow entry to allow for localization of light.
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\evo-of-eyes.png" style="width: 40%;">
                     <figcaption>Intermediary steps from a cluster of photoreceptors to the pinhole eye. (Taken from <a href="https://www.britannica.com/science/photoreception/Evolution-of-eyes">Britannica</a>).</figcaption>        
     </figure>
@@ -203,7 +217,7 @@ However, if you need depth perception, you're out of luck! If three objects are 
 Nautilus possess the most sophisticated version of the pinhole eye. [Muntz & Raj (1984)](https://journals.biologists.com/jeb/article-abstract/109/1/253/4173/On-the-Visual-System-of-Nautilus-Pompilius?redirectedFrom=fulltext) measured the nautilus eyes and created a fascinatng model of what they could be able to see:
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\nautilus-res.png" style="width: 35%;">
                     <figcaption>Model of nautilus eyesight. Top left, model eye chart. Top right, with pupil size of 1 x 0.4 mm; bottom left, 2 x 1 mm; and bototm right, 2.8 x 1.7 mm. (Taken from <a href="https://journals.biologists.com/jeb/article-abstract/109/1/253/4173/On-the-Visual-System-of-Nautilus-Pompilius?redirectedFrom=fulltext">Muntz & Raj, 1984</a>).</figcaption>        
     </figure>
@@ -213,7 +227,7 @@ The nautilus did not change much over the course of hundreds of millions of year
 
 Some mollusks, such as the octopus, some marine snails, and most subsequent Phyla will display a very elegant solution to the resolution problem.
 
-## How to build an eye
+## What's left for an eye
 
 Let's go back to the image of the different types of eyes in mollusks, and tell yourself, what differs from our human eyes? The most obvious difference is the cornea — or, in the case of some mollusks, the lack of one. Take the nautilus, for example: its eye has a pinhole opening rather than a lens, and its internal cavity is filled with seawater. There is no transparent "window" separating the outside environment from the inner eye. The same water flows both inside and out.
 
@@ -222,7 +236,7 @@ This system works well in aquatic environments, where the refractive index of wa
 A small layer of transparent cells now allows for the fluid inside the eye cavity to be different than the exterior. Depending on what fluid we use, we will change the index of refraction (how much the ray of light changes it trajectory as it traverses from one medium to another) of the eye. This is yet another powerful step towards resolution. "Reverse engineering" our eyes show that all rays of light concentrate in one single point in the retina!
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\cornea.png" style="width: 25%;">
                     <figcaption>Adding a cornea allow the fluid within the eye to be different, we can now play with refraction indexes until we focus all incoming light in one single place. (Taken from <a href="https://phas.ubc.ca/~oser/p438/">BIOL 438 classes at UBC, by Katherine Pachal</a>).</figcaption>        
     </figure>
@@ -231,7 +245,7 @@ A small layer of transparent cells now allows for the fluid inside the eye cavit
 Apparently, however, the lens appear to be the first structure of the two to emerge. Some marine slugs, such as the members of the <em>Onchidium</em> genus, have two types of eyes: the stalk eye — composed of cornea, lens, and retina — and the dorsal eye. Curiously, the dorsal eye lacks a cornea, but contains lens. The lens in an eye are achieving the same thing as the cornea, only slightly different in its very specific purpose. Embriologically, it is thought that, in the process of curving the eye pit towards a pinhole, the ectoderm (the outer embryonic layer) hardens and detaches into a free-floating structure, giving rise to the lens. Biochemically, different things create these two structure: lens are composed of different materials in different groups. For example, trilobites are believed to have calcite lens, while extant invertebrates and vertebrates lens are composed by a variety of crystallins and heat-shock proteins. [This is all to say that cornea and lenses are the taxon-specific latecomers to the building of an eye](https://www.nature.com/articles/eye2017226).
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\onchidium.png" style="width: 50%;">
                     <figcaption>The different eyes in <em>Onchidium</em>. In A, you can see the stalk eye with cornea (C), lens (L), and retina (R). In B, the cornea-less dorsal eye. (Taken from <a href="https://bioone.org/journals/zoological-science/volume-19/issue-11/zsj.19.1231/Localization-of-Retinal-Proteins-in-the-Stalk-and-Dorsal-Eyes/10.2108/zsj.19.1231.full">Katagiri <em>et</em> al., 2002</a>).</figcaption>        
     </figure>
@@ -242,7 +256,7 @@ Apparently, however, the lens appear to be the first structure of the two to eme
 Early, I showed the <em>Euglena</em> eyespot. We can incorrectly assume that this is the best we will find in these unicellular eukaryotes, but evolution is in action all around, and all the time. We can see this in the dinoflagellate <em>Nematodinium</em>. This little protist has a proto-cornea, a proto-lens, and a pigment cup. It is as if certain steps in the building of an eye are universal. Maybe they are, as the pieces required to build an eye are doing other things in the cell and can be co-oped to this new function. It is a leading hypothesis to the opsin origins, as we saw before. In the case of these dinoflagellates, there's evidence that the ocelloid (the eye) is composed of structures that came from symbiontic events with red algae, perhaps even other protists. Chloroplast is one such structure acquired by symbiosis. They might be able to switch between autotrophy (photosynthesis) and heterotrophy (predatory behavior) based on the environment cues. How they process lights (or image, if at all) is really a mystery. Nevertheless, this pattern of eye emergence across life is starting to be clear.
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\nematodinium.png" style="width: 50%;">
                     <figcaption><em>Nematodinium</em>. You can see the camera-like eye in black. (Taken from <a href="https://www.nature.com/articles/eye2017226">The evolution of eyes: major steps. The Keeler lecture 2017: centenary of Keeler</a>).</figcaption>        
     </figure>
@@ -255,14 +269,14 @@ To put into perspective, we started by looking at the early stages of life on Ea
 Finally, we will circle back to jellyfishes. Cnidarians are very old, 635-543 million-years old, to be precise. Around the same time, sponges and ctenophores showed up. These, alongside Placozoans, comprise the four major basal metazoans. One particular group of jellyfishes, the class Cubozoa, have what is called camera-style eyes. Anatomically, these cubozoans are indeed cube-like, with four sides, and each side has a structure called rhopalia. Rhopalia is basically the location in which six eyes can be found. Four of those eyes are analogous to the eyepits we were discussing previously, while two are camera-like with cornea, lens, and retina. Six eyes per side, to a total of 24 eyes per animal!
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\Cubozoan_visual_system_in_Tripedalia_cystophora.png" style="width: 100%;">
                     <figcaption><em>Tripedalia cystophora</em> (A) and the rhopalia (B). Abbreviations: lower lens eye LLE, upper lens eye ULE, pit eye PE and slit eye SE) and a light sensitive neuropil (NP, red broken line). The eyes are responsible for the image formation in the animal and the light sensitive neuropil is thought to be involved in diurnal activity". (Taken from <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098870">Bielecki <em>et</em> al., 2014</a>).</figcaption>        
     </figure>
 </div>
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\rhopalia.png" style="width: 50%;">
                     <figcaption><em>Tripedalia cystophora</em> rhopalia showing camera-style eye. (Taken from <a href="https://www.nature.com/articles/eye2017226">The evolution of eyes: major steps. The Keeler lecture 2017: centenary of Keeler</a>).</figcaption>        
     </figure>
@@ -271,7 +285,7 @@ Finally, we will circle back to jellyfishes. Cnidarians are very old, 635-543 mi
 Scientists knew previously that the Medusazoan (those with medusa life stages) clade contains several classes with species that have eyes. While it is uncertain how images are processed in cnidarian nervous systems, eyes seems not to necessarily need a brain to process these external inputs. [Some scientists argue](https://pmc.ncbi.nlm.nih.gov/articles/PMC7578360/) that different eyes have different purpose (either looking up, which is especially good for discerning complex images, such as the composition of a mangrove forest, or down, to look at the underwater environment).
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\1-s2.0-S0960982218306912-fx1.jpg" style="width: 50%;">
                     <figcaption>Eyes originated many times during Cnidaria evolution(Taken from <a href="https://www.sciencedirect.com/science/article/pii/S0960982218306912">Picciani <em>et</em> al., 2018</a>).</figcaption>        
     </figure>
@@ -280,7 +294,7 @@ Scientists knew previously that the Medusazoan (those with medusa life stages) c
 It is truly remarkable. These cnidarians have completely different regimes of development for each type of eye. The lens-containing eye development shows pretty much the same hypothesis we discussed previously being accurate: the lens cell invaginate at first, when there's no differentiated cornea cells. Those cells then differentiate, overlaying the lens which is now globular in shape. The image below can speak way better than I can
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <figure style="width: 100%;">
+    <figure style="width: 100%; text-align: center;">
         <img src="\assets\images\newsletters\cubozoan_dev.png" style="width: 100%;">
                     <figcaption>Development of <em>Tripedalia cystophora</em>(Taken from <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7578360/">Koenig & Gross, 2020</a>).</figcaption>        
     </figure>
