@@ -81,7 +81,7 @@ Once a pinhole exists, a transparent covering can emerge to protect it. Slight t
 
 What good does a complex light-sensing mechanism without processing power? Photoreceptors connect to nerve cells, and eventually to centralized processing units (ganglia, brains). These pathways extract features like contrast, motion, and orientation.
 
-##### And <em>voilá</em>, <em>habemus</em> eyes.
+##### And <em>voilá</em>, <em>habemus oculos</em>.
 
 You now have a functioning camera-like eye. This recipe has been independently cooked multiple times. Camera eyes evolved separately in vertebrates and cephalopods; compound eyes in arthropods. Evolution, it seems, finds similar solutions under similar conditions.
 
