@@ -1,6 +1,6 @@
 ---
 title: "From ufology to skepticism - a case for reason and intellectual virtues"
-date_range: "2025"
+date_range: "2026"
 image: "/assets/images/outreach/scicon26.jpg"
 category: "talks"
 excerpt: "A poster about the central figure of the Varginha Case, for the CSICon 2026."
