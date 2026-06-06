@@ -1,5 +1,5 @@
 ---
-title: "[Upcoming - Biology Retreat 2026]"
+title: "Teaching Ethics Through the History of Science: A Case-Based Jigsaw Activity"
 date_range: "2026"
 image: "/assets/images/outreach/ethics2026.jpg"
 category: "talks"
